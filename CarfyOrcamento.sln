@@ -1,0 +1,86 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35222.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{80FB7AEB-B481-452D-954C-BBCD488B4073}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{1BE65EE6-AD84-4060-9F57-0275E7082180}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarfyOrcamento.Core", "src\CarfyOrcamento.Core\CarfyOrcamento.Core.csproj", "{013D5688-7032-42F4-AFCE-41E8904810B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarfyOrcamento.Application", "src\CarfyOrcamento.Application\CarfyOrcamento.Application.csproj", "{0B707579-4F80-4CB5-ADB4-29F87F85E0FE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E4F07B33-C05B-48C3-ADD9-423510BC65BF} = {E4F07B33-C05B-48C3-ADD9-423510BC65BF}
+		{013D5688-7032-42F4-AFCE-41E8904810B0} = {013D5688-7032-42F4-AFCE-41E8904810B0}
+		{15B0E0AB-2C53-4911-8615-3203B2629444} = {15B0E0AB-2C53-4911-8615-3203B2629444}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarfyOrcamento.Communication", "src\CarfyOrcamento.Communication\CarfyOrcamento.Communication.csproj", "{E4F07B33-C05B-48C3-ADD9-423510BC65BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarfyOrcamento.Exceptions", "src\CarfyOrcamento.Exceptions\CarfyOrcamento.Exceptions.csproj", "{15B0E0AB-2C53-4911-8615-3203B2629444}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarfyOrcamento.Infrastructure", "src\CarfyOrcamento.Infrastructure\CarfyOrcamento.Infrastructure.csproj", "{841C736B-1DB3-4E19-BB65-52E73852BDDB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarfyOrcamento.Api", "src\CarfyOrcamento.Api\CarfyOrcamento.Api.csproj", "{89B13A34-FE4A-4C9D-AD78-064A06E13A89}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0B707579-4F80-4CB5-ADB4-29F87F85E0FE} = {0B707579-4F80-4CB5-ADB4-29F87F85E0FE}
+		{E4F07B33-C05B-48C3-ADD9-423510BC65BF} = {E4F07B33-C05B-48C3-ADD9-423510BC65BF}
+		{013D5688-7032-42F4-AFCE-41E8904810B0} = {013D5688-7032-42F4-AFCE-41E8904810B0}
+		{15B0E0AB-2C53-4911-8615-3203B2629444} = {15B0E0AB-2C53-4911-8615-3203B2629444}
+		{841C736B-1DB3-4E19-BB65-52E73852BDDB} = {841C736B-1DB3-4E19-BB65-52E73852BDDB}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarfyOrcamento.Test", "tests\CarfyOrcamento.Test\CarfyOrcamento.Test.csproj", "{3B3166C6-8655-4ACE-9D09-DE1029EE84B4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{013D5688-7032-42F4-AFCE-41E8904810B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{013D5688-7032-42F4-AFCE-41E8904810B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{013D5688-7032-42F4-AFCE-41E8904810B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{013D5688-7032-42F4-AFCE-41E8904810B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B707579-4F80-4CB5-ADB4-29F87F85E0FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B707579-4F80-4CB5-ADB4-29F87F85E0FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B707579-4F80-4CB5-ADB4-29F87F85E0FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B707579-4F80-4CB5-ADB4-29F87F85E0FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4F07B33-C05B-48C3-ADD9-423510BC65BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4F07B33-C05B-48C3-ADD9-423510BC65BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4F07B33-C05B-48C3-ADD9-423510BC65BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4F07B33-C05B-48C3-ADD9-423510BC65BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15B0E0AB-2C53-4911-8615-3203B2629444}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15B0E0AB-2C53-4911-8615-3203B2629444}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15B0E0AB-2C53-4911-8615-3203B2629444}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15B0E0AB-2C53-4911-8615-3203B2629444}.Release|Any CPU.Build.0 = Release|Any CPU
+		{841C736B-1DB3-4E19-BB65-52E73852BDDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{841C736B-1DB3-4E19-BB65-52E73852BDDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{841C736B-1DB3-4E19-BB65-52E73852BDDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{841C736B-1DB3-4E19-BB65-52E73852BDDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89B13A34-FE4A-4C9D-AD78-064A06E13A89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89B13A34-FE4A-4C9D-AD78-064A06E13A89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89B13A34-FE4A-4C9D-AD78-064A06E13A89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89B13A34-FE4A-4C9D-AD78-064A06E13A89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B3166C6-8655-4ACE-9D09-DE1029EE84B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B3166C6-8655-4ACE-9D09-DE1029EE84B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B3166C6-8655-4ACE-9D09-DE1029EE84B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B3166C6-8655-4ACE-9D09-DE1029EE84B4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{013D5688-7032-42F4-AFCE-41E8904810B0} = {80FB7AEB-B481-452D-954C-BBCD488B4073}
+		{0B707579-4F80-4CB5-ADB4-29F87F85E0FE} = {80FB7AEB-B481-452D-954C-BBCD488B4073}
+		{E4F07B33-C05B-48C3-ADD9-423510BC65BF} = {80FB7AEB-B481-452D-954C-BBCD488B4073}
+		{15B0E0AB-2C53-4911-8615-3203B2629444} = {80FB7AEB-B481-452D-954C-BBCD488B4073}
+		{841C736B-1DB3-4E19-BB65-52E73852BDDB} = {80FB7AEB-B481-452D-954C-BBCD488B4073}
+		{89B13A34-FE4A-4C9D-AD78-064A06E13A89} = {80FB7AEB-B481-452D-954C-BBCD488B4073}
+		{3B3166C6-8655-4ACE-9D09-DE1029EE84B4} = {1BE65EE6-AD84-4060-9F57-0275E7082180}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {888FD51C-F200-43A4-9B0F-0BBF4F4821E2}
+	EndGlobalSection
+EndGlobal
