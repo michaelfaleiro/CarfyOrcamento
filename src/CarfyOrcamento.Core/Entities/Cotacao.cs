@@ -1,3 +1,5 @@
+using CarfyOrcamento.Core.Enums;
+
 namespace CarfyOrcamento.Core.Entities;
 
 public class Cotacao : Entity
@@ -7,7 +9,7 @@ public class Cotacao : Entity
         Itens = [];
     }
 
-    public Cotacao(Orcamento orcamento,  StatusCotacao status)
+    public Cotacao(Orcamento orcamento, EStatusOrcamentoCotacao status)
     {
         Orcamento = orcamento;
         Status = status;
@@ -15,6 +17,6 @@ public class Cotacao : Entity
     }
 
     public Orcamento Orcamento { get; set; } = null!;
-    public IList<ItemCotacao> Itens { get; set; } 
-    public StatusCotacao Status { get; set; } = null!;
+    public IEnumerable<ItemCotacao> Itens { get; set; }
+    public EStatusOrcamentoCotacao Status { get; set; }
 }

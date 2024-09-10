@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarfyOrcamento.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240901213401_Initial")]
-    partial class Initial
+    [Migration("20240910003313_Initial_")]
+    partial class Initial_
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,81 @@ namespace CarfyOrcamento.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("CarfyOrcamento.Core.Entities.Cliente", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CpfCnpj")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NomeFantasia")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NomeRazaoSocial")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Observacao")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RgIe")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Telefone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TipoPessoa")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Clientes");
+                });
+
+            modelBuilder.Entity("CarfyOrcamento.Core.Entities.ClienteVeiculos", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ClienteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("VeiculoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClienteId");
+
+                    b.HasIndex("VeiculoId");
+
+                    b.ToTable("ClienteVeiculos");
+                });
 
             modelBuilder.Entity("CarfyOrcamento.Core.Entities.Cotacao", b =>
                 {
@@ -37,8 +112,8 @@ namespace CarfyOrcamento.Infrastructure.Migrations
                     b.Property<Guid>("OrcamentoId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("StatusId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -47,9 +122,60 @@ namespace CarfyOrcamento.Infrastructure.Migrations
 
                     b.HasIndex("OrcamentoId");
 
-                    b.HasIndex("StatusId");
-
                     b.ToTable("Cotacoes");
+                });
+
+            modelBuilder.Entity("CarfyOrcamento.Core.Entities.Endereco", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Bairro")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Cep")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Cidade")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("ClienteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Complemento")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Estado")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Logradouro")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Numero")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TipoEndereco")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClienteId");
+
+                    b.ToTable("Endereco");
                 });
 
             modelBuilder.Entity("CarfyOrcamento.Core.Entities.ItemAvulsoOrcamento", b =>
@@ -207,8 +333,8 @@ namespace CarfyOrcamento.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("StatusId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -222,12 +348,15 @@ namespace CarfyOrcamento.Infrastructure.Migrations
                     b.Property<Guid>("VeiculoId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("VendedorId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Vendedor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StatusId");
+                    b.HasIndex("ClienteId");
+
+                    b.HasIndex("VeiculoId");
 
                     b.ToTable("Orcamentos");
                 });
@@ -278,16 +407,35 @@ namespace CarfyOrcamento.Infrastructure.Migrations
                     b.ToTable("PrecoItemCotacoes");
                 });
 
-            modelBuilder.Entity("CarfyOrcamento.Core.Entities.StatusCotacao", b =>
+            modelBuilder.Entity("CarfyOrcamento.Core.Entities.Veiculo", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("Ano")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Chassi")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Cor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Nome")
+                    b.Property<string>("Marca")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Modelo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Placa")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -296,28 +444,26 @@ namespace CarfyOrcamento.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("StatusCotacoes");
+                    b.ToTable("Veiculos");
                 });
 
-            modelBuilder.Entity("CarfyOrcamento.Core.Entities.StatusOrcamento", b =>
+            modelBuilder.Entity("CarfyOrcamento.Core.Entities.ClienteVeiculos", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.HasOne("CarfyOrcamento.Core.Entities.Cliente", "Cliente")
+                        .WithMany("Veiculos")
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                    b.HasOne("CarfyOrcamento.Core.Entities.Veiculo", "Veiculo")
+                        .WithMany("ClienteVeiculos")
+                        .HasForeignKey("VeiculoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Navigation("Cliente");
 
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("StatusOrcamentos");
+                    b.Navigation("Veiculo");
                 });
 
             modelBuilder.Entity("CarfyOrcamento.Core.Entities.Cotacao", b =>
@@ -328,15 +474,14 @@ namespace CarfyOrcamento.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CarfyOrcamento.Core.Entities.StatusCotacao", "Status")
-                        .WithMany()
-                        .HasForeignKey("StatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Orcamento");
+                });
 
-                    b.Navigation("Status");
+            modelBuilder.Entity("CarfyOrcamento.Core.Entities.Endereco", b =>
+                {
+                    b.HasOne("CarfyOrcamento.Core.Entities.Cliente", null)
+                        .WithMany("Enderecos")
+                        .HasForeignKey("ClienteId");
                 });
 
             modelBuilder.Entity("CarfyOrcamento.Core.Entities.ItemAvulsoOrcamento", b =>
@@ -381,11 +526,21 @@ namespace CarfyOrcamento.Infrastructure.Migrations
 
             modelBuilder.Entity("CarfyOrcamento.Core.Entities.Orcamento", b =>
                 {
-                    b.HasOne("CarfyOrcamento.Core.Entities.StatusOrcamento", "Status")
+                    b.HasOne("CarfyOrcamento.Core.Entities.Cliente", "Cliente")
                         .WithMany()
-                        .HasForeignKey("StatusId");
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Status");
+                    b.HasOne("CarfyOrcamento.Core.Entities.Veiculo", "Veiculo")
+                        .WithMany()
+                        .HasForeignKey("VeiculoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cliente");
+
+                    b.Navigation("Veiculo");
                 });
 
             modelBuilder.Entity("CarfyOrcamento.Core.Entities.PrecoItemCotacao", b =>
@@ -397,6 +552,13 @@ namespace CarfyOrcamento.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("ItemCotacao");
+                });
+
+            modelBuilder.Entity("CarfyOrcamento.Core.Entities.Cliente", b =>
+                {
+                    b.Navigation("Enderecos");
+
+                    b.Navigation("Veiculos");
                 });
 
             modelBuilder.Entity("CarfyOrcamento.Core.Entities.Cotacao", b =>
@@ -414,6 +576,11 @@ namespace CarfyOrcamento.Infrastructure.Migrations
                     b.Navigation("Itens");
 
                     b.Navigation("ItensAvulsos");
+                });
+
+            modelBuilder.Entity("CarfyOrcamento.Core.Entities.Veiculo", b =>
+                {
+                    b.Navigation("ClienteVeiculos");
                 });
 #pragma warning restore 612, 618
         }

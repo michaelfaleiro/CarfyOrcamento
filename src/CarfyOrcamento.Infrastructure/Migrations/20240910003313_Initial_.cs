@@ -6,37 +6,103 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CarfyOrcamento.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class Initial_ : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "StatusCotacoes",
+                name: "Clientes",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NomeRazaoSocial = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NomeFantasia = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CpfCnpj = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RgIe = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Telefone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TipoPessoa = table.Column<int>(type: "int", nullable: false),
+                    Observacao = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StatusCotacoes", x => x.Id);
+                    table.PrimaryKey("PK_Clientes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "StatusOrcamentos",
+                name: "Veiculos",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Placa = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Chassi = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Marca = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Modelo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Cor = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Ano = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StatusOrcamentos", x => x.Id);
+                    table.PrimaryKey("PK_Veiculos", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Endereco",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Logradouro = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Numero = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Complemento = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Bairro = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Cidade = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Estado = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Cep = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TipoEndereco = table.Column<int>(type: "int", nullable: false),
+                    ClienteId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Endereco", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Endereco_Clientes_ClienteId",
+                        column: x => x.ClienteId,
+                        principalTable: "Clientes",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ClienteVeiculos",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ClienteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    VeiculoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ClienteVeiculos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ClienteVeiculos_Clientes_ClienteId",
+                        column: x => x.ClienteId,
+                        principalTable: "Clientes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ClienteVeiculos_Veiculos_VeiculoId",
+                        column: x => x.VeiculoId,
+                        principalTable: "Veiculos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -46,8 +112,8 @@ namespace CarfyOrcamento.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ClienteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     VeiculoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    VendedorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    StatusId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Vendedor = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
                     ValorTotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ValorDesconto = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -57,10 +123,17 @@ namespace CarfyOrcamento.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_Orcamentos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Orcamentos_StatusOrcamentos_StatusId",
-                        column: x => x.StatusId,
-                        principalTable: "StatusOrcamentos",
-                        principalColumn: "Id");
+                        name: "FK_Orcamentos_Clientes_ClienteId",
+                        column: x => x.ClienteId,
+                        principalTable: "Clientes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Orcamentos_Veiculos_VeiculoId",
+                        column: x => x.VeiculoId,
+                        principalTable: "Veiculos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -69,7 +142,7 @@ namespace CarfyOrcamento.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     OrcamentoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    StatusId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -80,12 +153,6 @@ namespace CarfyOrcamento.Infrastructure.Migrations
                         name: "FK_Cotacoes_Orcamentos_OrcamentoId",
                         column: x => x.OrcamentoId,
                         principalTable: "Orcamentos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Cotacoes_StatusCotacoes_StatusId",
-                        column: x => x.StatusId,
-                        principalTable: "StatusCotacoes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -213,6 +280,16 @@ namespace CarfyOrcamento.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_ClienteVeiculos_ClienteId",
+                table: "ClienteVeiculos",
+                column: "ClienteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClienteVeiculos_VeiculoId",
+                table: "ClienteVeiculos",
+                column: "VeiculoId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CodigoEquivalentes_ItemCotacaoId",
                 table: "CodigoEquivalentes",
                 column: "ItemCotacaoId");
@@ -223,9 +300,9 @@ namespace CarfyOrcamento.Infrastructure.Migrations
                 column: "OrcamentoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cotacoes_StatusId",
-                table: "Cotacoes",
-                column: "StatusId");
+                name: "IX_Endereco_ClienteId",
+                table: "Endereco",
+                column: "ClienteId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ItemAvulsoOrcamentos_OrcamentoId",
@@ -243,9 +320,14 @@ namespace CarfyOrcamento.Infrastructure.Migrations
                 column: "OrcamentoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orcamentos_StatusId",
+                name: "IX_Orcamentos_ClienteId",
                 table: "Orcamentos",
-                column: "StatusId");
+                column: "ClienteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orcamentos_VeiculoId",
+                table: "Orcamentos",
+                column: "VeiculoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PrecoItemCotacoes_ItemCotacaoId",
@@ -257,7 +339,13 @@ namespace CarfyOrcamento.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "ClienteVeiculos");
+
+            migrationBuilder.DropTable(
                 name: "CodigoEquivalentes");
+
+            migrationBuilder.DropTable(
+                name: "Endereco");
 
             migrationBuilder.DropTable(
                 name: "ItemAvulsoOrcamentos");
@@ -278,10 +366,10 @@ namespace CarfyOrcamento.Infrastructure.Migrations
                 name: "Orcamentos");
 
             migrationBuilder.DropTable(
-                name: "StatusCotacoes");
+                name: "Clientes");
 
             migrationBuilder.DropTable(
-                name: "StatusOrcamentos");
+                name: "Veiculos");
         }
     }
 }
