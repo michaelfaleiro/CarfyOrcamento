@@ -10,7 +10,7 @@ public class Orcamento : Entity
         ItensAvulsos = [];
     }
 
-    public Orcamento(Cliente cliente, Veiculo veiculo, string vendedor, EStatusOrcamentoCotacao status) 
+    public Orcamento(Cliente cliente, Veiculo veiculo, string vendedor, EStatusOrcamento status) 
     {
         Cliente = cliente;
         Veiculo = veiculo;
@@ -23,9 +23,15 @@ public class Orcamento : Entity
     public Cliente Cliente { get; set; } = null!;
     public Veiculo Veiculo { get; set; } = null!;
     public string Vendedor { get; set; } = null!;
-    public IEnumerable<ItemOrcamento> Itens { get; set; }
-    public IEnumerable<ItemAvulsoOrcamento> ItensAvulsos { get; set; }
-    public EStatusOrcamentoCotacao Status { get; set; }
-    public decimal ValorTotal { get; set; }
+    public IList<ItemOrcamento> Itens { get; set; }
+    public IList<ItemAvulsoOrcamento> ItensAvulsos { get; set; }
+    public EStatusOrcamento Status { get; set; }
     public decimal ValorDesconto { get; set; }
+   
+    public void AlterarStatus(EStatusOrcamento status)
+    {
+        Status = status;
+        UpdatedAt = DateTime.UtcNow;
+    }
+
 }

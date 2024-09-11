@@ -1,5 +1,4 @@
 using CarfyOrcamento.Core.Enums;
-using CarfyOrcamento.Exceptions.ExceptionsBase;
 
 namespace CarfyOrcamento.Core.Entities;
 

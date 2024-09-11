@@ -22,7 +22,9 @@ public class RemoverItemOrcamentoUseCase
 
         var item = orcamento.Itens.FirstOrDefault(x=> x.Id == request.ItemOrcamentoId) 
                    ?? throw new NotFoundException("Item não encontrado");
-
+        
+        orcamento.UpdatedAt = DateTime.UtcNow;
+        
         await _orcamentoRepository.RemoverItemAsync(item);
     }
     

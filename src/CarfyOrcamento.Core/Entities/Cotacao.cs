@@ -9,7 +9,7 @@ public class Cotacao : Entity
         Itens = [];
     }
 
-    public Cotacao(Orcamento orcamento, EStatusOrcamentoCotacao status)
+    public Cotacao(Orcamento orcamento, EStatusCotacao status)
     {
         Orcamento = orcamento;
         Status = status;
@@ -18,5 +18,5 @@ public class Cotacao : Entity
 
     public Orcamento Orcamento { get; set; } = null!;
     public IEnumerable<ItemCotacao> Itens { get; set; }
-    public EStatusOrcamentoCotacao Status { get; set; }
+    public EStatusCotacao Status { get; set; }
 }

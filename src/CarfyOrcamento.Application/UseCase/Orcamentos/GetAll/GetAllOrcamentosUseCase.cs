@@ -28,16 +28,11 @@ public class GetAllOrcamentosUseCase
                 orcamento.Cliente.Email,
                 orcamento.Cliente.TipoPessoa
             ),
-            new ResponseVeiculoJson(
+            new ResponseVeiculoShortJson(
                 orcamento.Veiculo.Id,
                 orcamento.Veiculo.Placa,
-                orcamento.Veiculo.Chassi,
-                orcamento.Veiculo.Marca,
                 orcamento.Veiculo.Modelo,
-                orcamento.Veiculo.Cor,
-                orcamento.Veiculo.Ano,
-                orcamento.Veiculo.CreatedAt,
-                orcamento.Veiculo.UpdatedAt
+                orcamento.Veiculo.Chassi
             ),
             orcamento.Vendedor,
             orcamento.Status,

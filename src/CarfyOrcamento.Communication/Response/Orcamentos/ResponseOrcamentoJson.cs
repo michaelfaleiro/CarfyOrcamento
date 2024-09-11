@@ -12,7 +12,7 @@ public record ResponseOrcamentoJson(
     string Vendedor,
     IEnumerable<ResponseItemOrcamentoJson> Itens,
     IEnumerable<ResponseItemAvulsoOrcamentoJson> ItensAvulsos,
-    EStatusOrcamentoCotacao Status,
+    EStatusOrcamento Status,
     DateTime CreatedAt,
     DateTime? UpdatedAt
     );

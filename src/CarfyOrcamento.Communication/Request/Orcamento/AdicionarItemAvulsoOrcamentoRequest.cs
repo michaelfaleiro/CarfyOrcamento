@@ -1,12 +1,11 @@
 namespace CarfyOrcamento.Communication.Request.Orcamento;
 
-public record AdicionarItemOrcamentoRequest(
+public record AdicionarItemAvulsoOrcamentoRequest(
     Guid OrcamentoId,
-    Guid ProdutoId,
     Guid FabricanteId,
-    string Fabricante,
     string Sku,
-    string Descricao,
+    string Fabricante,
     int Quantidade,
+    string Descricao,
     decimal ValorVenda
-);
+    );

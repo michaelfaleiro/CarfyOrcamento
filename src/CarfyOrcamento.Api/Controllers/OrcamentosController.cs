@@ -1,9 +1,13 @@
 
 using CarfyOrcamento.Application.UseCase.Orcamentos.AdicionarItem;
+using CarfyOrcamento.Application.UseCase.Orcamentos.AdicionarItemAvulso;
 using CarfyOrcamento.Application.UseCase.Orcamentos.GetAll;
 using CarfyOrcamento.Application.UseCase.Orcamentos.GetById;
 using CarfyOrcamento.Application.UseCase.Orcamentos.Register;
 using CarfyOrcamento.Application.UseCase.Orcamentos.RemoverItem;
+using CarfyOrcamento.Application.UseCase.Orcamentos.RemoverItemAvulso;
+using CarfyOrcamento.Application.UseCase.Orcamentos.Status;
+using CarfyOrcamento.Application.UseCase.Orcamentos.UpdateItemAvulso;
 using CarfyOrcamento.Communication.Request.Orcamento;
 using CarfyOrcamento.Communication.Response;
 using CarfyOrcamento.Communication.Response.Orcamentos;
@@ -48,7 +52,7 @@ public class OrcamentosController : ControllerBase
     [HttpPost("itens")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> PostItemAsync(
+    public async Task<IActionResult> AdicionarItemAsync(
         [FromBody] AdicionarItemOrcamentoRequest request,
         [FromServices] AdicionarItemOrcamentoUseCase useCase)
     {
@@ -67,4 +71,49 @@ public class OrcamentosController : ControllerBase
         return NoContent();
     }
     
+    [HttpPost("itens-avulsos")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> AdicionarItemAvulsoAsync(
+        [FromBody] AdicionarItemAvulsoOrcamentoRequest request,
+        [FromServices] AdicionarItemAvulsoOrcamentoUseCase useCase)
+    {
+        await useCase.ExecuteAsync(request);
+        return NoContent();
+    }
+    
+    [HttpPut("itens-avulsos")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> UpdateItemAvulsoAsync(
+        [FromBody] UpdateItemAvulsoOrcamentoRequest request,
+        [FromServices] UpdateItemAvulsoOrcamentoUseCase useCase)
+    {
+        await useCase.ExecuteAsync(request);
+        return NoContent();
+    }
+    
+    [HttpDelete("itens-avulsos")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> DeleteItemAvulsoAsync(
+        [FromBody] RemoverItemAvulsoOrcamentoRequest request,
+        [FromServices] RemoverItemAvulsoOrcamentoUseCase useCase)
+    {
+        await useCase.ExecuteAsync(request);
+        return NoContent();
+    }
+    
+    [HttpPost("status")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> UpdateStatusAsync(
+        [FromBody] AlterarStatusOrcamentoRequest request,
+        [FromServices] AlterarStatusOrcamentoUseCase useCase)
+    {
+        await useCase.ExecuteAsync(request);
+        return NoContent();
+    }
+
 }

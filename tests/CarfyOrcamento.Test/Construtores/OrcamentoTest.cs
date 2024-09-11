@@ -16,7 +16,7 @@ public class OrcamentoTest
             "Uno", "BRANCO", 2010);
         
         var vendedor = "vendedor";
-        var status = EStatusOrcamentoCotacao.Novo;
+        var status = EStatusOrcamento.Novo;
     
         // Act
         var orcamento = new Orcamento(cliente, veiculo, vendedor, status);

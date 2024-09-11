@@ -26,6 +26,15 @@ public class AdicionarItemOrcamentoValidator : AbstractValidator<AdicionarItemOr
         RuleFor(x => x.ValorVenda)
             .GreaterThan(0)
             .WithMessage("O valor de venda deve ser maior que zero.");
+        
+        RuleFor(x => x.FabricanteId)
+            .NotEmpty()
+            .WithMessage("O id do fabricante é obrigatório.");
+        
+        RuleFor(x => x.Fabricante)
+            .NotEmpty()
+            .WithMessage("O fabricante é obrigatório.");
+            
     }
     
 }

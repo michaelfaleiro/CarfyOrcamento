@@ -1,8 +1,12 @@
 using CarfyOrcamento.Application.UseCase.Orcamentos.AdicionarItem;
+using CarfyOrcamento.Application.UseCase.Orcamentos.AdicionarItemAvulso;
 using CarfyOrcamento.Application.UseCase.Orcamentos.GetAll;
 using CarfyOrcamento.Application.UseCase.Orcamentos.GetById;
 using CarfyOrcamento.Application.UseCase.Orcamentos.Register;
 using CarfyOrcamento.Application.UseCase.Orcamentos.RemoverItem;
+using CarfyOrcamento.Application.UseCase.Orcamentos.RemoverItemAvulso;
+using CarfyOrcamento.Application.UseCase.Orcamentos.Status;
+using CarfyOrcamento.Application.UseCase.Orcamentos.UpdateItemAvulso;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CarfyOrcamento.Application.Services;
@@ -16,8 +20,11 @@ public static class OrcamentoService
         services.AddScoped<GetByIdOrcamentoUseCase>();
         services.AddScoped<AdicionarItemOrcamentoUseCase>();
         services.AddScoped<RemoverItemOrcamentoUseCase>();
-        
-        
+        services.AddScoped<AdicionarItemAvulsoOrcamentoUseCase>();
+        services.AddScoped<UpdateItemAvulsoOrcamentoUseCase>();
+        services.AddScoped<RemoverItemAvulsoOrcamentoUseCase>();
+        services.AddScoped<AlterarStatusOrcamentoUseCase>();
+
         return services;
     }
     

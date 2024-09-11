@@ -4,6 +4,7 @@ using CarfyOrcamento.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarfyOrcamento.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240910105703_changeFieldOrcamento")]
+    partial class changeFieldOrcamento
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -188,13 +191,6 @@ namespace CarfyOrcamento.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Fabricante")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("FabricanteId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("OrcamentoId")
                         .HasColumnType("uniqueidentifier");
 
@@ -298,13 +294,6 @@ namespace CarfyOrcamento.Infrastructure.Migrations
                     b.Property<string>("Descricao")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Fabricante")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("FabricanteId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("OrcamentoId")
                         .HasColumnType("uniqueidentifier");

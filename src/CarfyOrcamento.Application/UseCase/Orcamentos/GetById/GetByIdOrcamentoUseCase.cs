@@ -46,6 +46,9 @@ public class GetByIdOrcamentoUseCase
             orcamento.Vendedor,
             orcamento.Itens.Select(item => new ResponseItemOrcamentoJson(
                 item.Id,
+                item.ProdutoId,
+                item.FabricanteId,
+                item.Fabricante,
                 item.Sku,
                 item.Descricao,
                 item.Quantidade,
@@ -54,6 +57,8 @@ public class GetByIdOrcamentoUseCase
             orcamento.ItensAvulsos.Select(item => new ResponseItemAvulsoOrcamentoJson(
                 item.Id,
                 orcamento.Id,
+                item.FabricanteId,
+                item.Fabricante,
                 item.Sku,
                 item.Descricao,
                 item.ValorVenda,

@@ -35,7 +35,7 @@ public class RegisterOrcamentoUseCase
         var entity = new Orcamento(
             cliente,
             veiculo.Veiculo,
-            request.VendedorId,
+            request.Vendedor,
             request.Status
         );
 
@@ -44,11 +44,9 @@ public class RegisterOrcamentoUseCase
         var result = new ResponseOrcamentoShortJson(
             orcamento.Id, new ResponseClienteShortJson(
                 cliente.Id, cliente.NomeRazaoSocial, cliente.Telefone, cliente.Email, cliente.TipoPessoa), 
-            new ResponseVeiculoJson(veiculo.Veiculo.Id, veiculo.Veiculo.Placa, veiculo.Veiculo.Chassi,
-                veiculo.Veiculo.Marca, veiculo.Veiculo.Modelo, veiculo.Veiculo.Cor,
-                veiculo.Veiculo.Ano, veiculo.Veiculo.CreatedAt, veiculo.Veiculo.UpdatedAt)
-            ,orcamento.Vendedor,
-            orcamento.Status, orcamento.CreatedAt, orcamento.UpdatedAt);
+            new ResponseVeiculoShortJson(veiculo.Veiculo.Id, veiculo.Veiculo.Placa, 
+                veiculo.Veiculo.Modelo, veiculo.Veiculo.Chassi)
+            ,orcamento.Vendedor, orcamento.Status, orcamento.CreatedAt, orcamento.UpdatedAt);
 
         return new ResponseJson<ResponseOrcamentoShortJson>(result);
     }

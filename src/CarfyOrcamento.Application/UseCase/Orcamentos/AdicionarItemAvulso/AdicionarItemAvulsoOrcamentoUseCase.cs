@@ -3,18 +3,18 @@ using CarfyOrcamento.Core.Entities;
 using CarfyOrcamento.Core.Repositories.Orcamentos;
 using CarfyOrcamento.Exceptions.ExceptionsBase;
 
-namespace CarfyOrcamento.Application.UseCase.Orcamentos.AdicionarItem;
+namespace CarfyOrcamento.Application.UseCase.Orcamentos.AdicionarItemAvulso;
 
-public class AdicionarItemOrcamentoUseCase
+public class AdicionarItemAvulsoOrcamentoUseCase
 {
     private readonly IOrcamentoRepository _orcamentoRepository;
     
-    public AdicionarItemOrcamentoUseCase(IOrcamentoRepository orcamentoRepository)
+    public AdicionarItemAvulsoOrcamentoUseCase(IOrcamentoRepository orcamentoRepository)
     {
         _orcamentoRepository = orcamentoRepository;
     }
     
-    public async Task ExecuteAsync(AdicionarItemOrcamentoRequest request)
+    public async Task ExecuteAsync(AdicionarItemAvulsoOrcamentoRequest request)
     {
         Validate(request);
         
@@ -23,15 +23,22 @@ public class AdicionarItemOrcamentoUseCase
         
         orcamento.UpdatedAt = DateTime.UtcNow;
         
-        var item = new ItemOrcamento(request.ProdutoId, request.FabricanteId, request.Fabricante, request.Sku,
-            request.Descricao, request.Quantidade, request.ValorVenda, orcamento);
+        var item = new ItemAvulsoOrcamento(
+            request.FabricanteId,
+            request.Sku,
+            request.Fabricante,
+            request.Quantidade,
+            request.Descricao,
+            request.ValorVenda,
+            orcamento
+        );
         
-        await _orcamentoRepository.AdicionarItemAsync(item);
+        await _orcamentoRepository.AdicionarItemAvulsoAsync(item);
     }
-    
-    private void Validate(AdicionarItemOrcamentoRequest request)
+
+    private void Validate(AdicionarItemAvulsoOrcamentoRequest request)
     {
-        var validator = new AdicionarItemOrcamentoValidator();
+        var validator = new AdicionarItemAvulsoValidator();
         var result = validator.Validate(request);
         
         if (result.IsValid) return;

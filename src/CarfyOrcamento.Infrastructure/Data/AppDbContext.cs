@@ -24,10 +24,6 @@ public class AppDbContext : DbContext
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
 
-        modelBuilder.Entity<Orcamento>()
-            .Property(o => o.ValorTotal)
-            .HasColumnType("decimal(18,2)");
-
         modelBuilder.Entity<ItemOrcamento>()
             .Property(i => i.ValorVenda)
             .HasColumnType("decimal(18,2)");
@@ -42,6 +38,10 @@ public class AppDbContext : DbContext
 
         modelBuilder.Entity<PrecoItemCotacao>()
             .Property(p => p.ValorVenda)
+            .HasColumnType("decimal(18,2)");
+
+       modelBuilder.Entity<Orcamento>()
+            .Property(o => o.ValorDesconto)
             .HasColumnType("decimal(18,2)");
     }
 }

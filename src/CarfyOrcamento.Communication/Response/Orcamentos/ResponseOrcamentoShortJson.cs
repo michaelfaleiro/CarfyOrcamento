@@ -7,9 +7,9 @@ namespace CarfyOrcamento.Communication.Response.Orcamentos;
 public record ResponseOrcamentoShortJson(
     Guid Id,
     ResponseClienteShortJson Cliente,
-    ResponseVeiculoJson Veiculo,
+    ResponseVeiculoShortJson Veiculo,
     string Vendedor,
-    EStatusOrcamentoCotacao Status,
+    EStatusOrcamento Status,
     DateTime CreatedAt,
     DateTime? UpdatedAt
 );

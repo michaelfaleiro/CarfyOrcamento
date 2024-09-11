@@ -17,6 +17,8 @@ internal class OrcamentoRepository : IOrcamentoRepository
     public async Task<Orcamento?> GetByIdAsync(Guid id)
     {
         var entity = await _context.Orcamentos
+            .Include(x => x.Cliente)
+            .Include(x => x.Veiculo)
             .Include(x=> x.Itens)
             .Include(x=> x.ItensAvulsos)
             .FirstOrDefaultAsync(x=> x.Id == id);
@@ -25,7 +27,11 @@ internal class OrcamentoRepository : IOrcamentoRepository
 
     public async Task<PagedResponse<Orcamento>> GetAllAsync(int pageNumber, int pageSize)
     {
-        var query = _context.Orcamentos.AsNoTracking();
+        var query = _context.Orcamentos
+            .AsNoTracking()
+            .Include(x => x.Cliente)
+            .Include(x => x.Veiculo);
+            
         
         var data = await query
             .OrderBy(x=> x.CreatedAt)
@@ -72,6 +78,12 @@ internal class OrcamentoRepository : IOrcamentoRepository
     public async Task AdicionarItemAvulsoAsync(ItemAvulsoOrcamento item)
     {
         await _context.ItemAvulsoOrcamentos.AddAsync(item);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task AtualizarItemAvulsoAsync(ItemAvulsoOrcamento item)
+    {
+        _context.ItemAvulsoOrcamentos.Update(item);
         await _context.SaveChangesAsync();
     }
 
