@@ -47,16 +47,20 @@ public class Cliente : Entity
         Email = cliente.Email;
         TipoPessoa = cliente.TipoPessoa;
         Observacao = cliente.Observacao;
+        UpdatedAt = DateTime.UtcNow;
+
     }
     
     public void AdicionarEndereco(Endereco endereco)
     {
         Enderecos.Add(endereco);
+        UpdatedAt = DateTime.UtcNow;
     }
     
     public void RemoverEndereco(Endereco endereco)
     {
         Enderecos.Remove(endereco);
+        UpdatedAt = DateTime.UtcNow;
     }
     
 }

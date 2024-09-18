@@ -20,6 +20,7 @@ builder.Services.AddInfrastructure();
 builder.Services.OrcamentoUseCase();
 builder.Services.ClienteUseCase();
 builder.Services.VeiculoUseCase();
+builder.Services.CotacaoUseCase();
 
 builder.Services.AddMvc(config => config.Filters.Add(typeof(ExceptionFilter)));
 

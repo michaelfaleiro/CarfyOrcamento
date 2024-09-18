@@ -29,7 +29,7 @@ public class RegisterOrcamentoUseCase
         var cliente = await _clienteRepository.GetByIdAsync(request.ClienteId)
                       ?? throw new NotFoundException("Cliente não encontrado");
         
-        var veiculo = cliente.Veiculos.FirstOrDefault(v => v.Id == request.VeiculoId)
+        var veiculo = cliente.Veiculos.FirstOrDefault(x => x.Veiculo.Id == request.VeiculoId)
                       ?? throw new NotFoundException("Veículo não encontrado");
         
         var entity = new Orcamento(

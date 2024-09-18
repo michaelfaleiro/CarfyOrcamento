@@ -16,12 +16,17 @@ internal class CotacaoRepository : ICotacaoRepository
 
     public async Task<Cotacao?> GetByIdAsync(Guid id)
     {
-        return await _context.Cotacoes.FirstOrDefaultAsync(x => x.Id == id);
+        return await _context.Cotacoes
+            .Include(x=> x.Orcamento)
+            .Include(x => x.Itens)
+            .ThenInclude(x => x.PrecoItemFornecedor)
+            .FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<PagedResponse<Cotacao>> GetAllAsync(int pageNumber, int pageSize)
     {
-        var query = _context.Cotacoes.AsNoTracking();
+        var query = _context.Cotacoes
+            .AsNoTracking();
 
         var data = await query
             .OrderBy(x => x.CreatedAt)
@@ -51,6 +56,62 @@ internal class CotacaoRepository : ICotacaoRepository
     public async Task DeleteAsync(Cotacao entity)
     {
         _context.Cotacoes.Remove(entity);
+        await _context.SaveChangesAsync();
+    }
+
+    public Task AdicionarItemCotacao(ItemCotacao itemCotacao)
+    {
+        _context.ItemCotacoes.Add(itemCotacao);
+        return _context.SaveChangesAsync();
+    }
+
+    public Task AtualizarItemCotacao(ItemCotacao itemCotacao)
+    {
+        _context.ItemCotacoes.Update(itemCotacao);
+        return _context.SaveChangesAsync();
+
+    }
+
+    public Task RemoverItemCotacao(ItemCotacao itemCotacao)
+    {
+        _context.ItemCotacoes.Remove(itemCotacao);
+        return _context.SaveChangesAsync();
+
+    }
+
+    public async Task AdicionarPrecoItemCotacao(PrecoItemCotacao precoItemCotacao)
+    {
+        _context.PrecoItemCotacoes.Add(precoItemCotacao);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task AtualizarPrecoItemCotacao(PrecoItemCotacao precoItemCotacao)
+    {
+        _context.PrecoItemCotacoes.Update(precoItemCotacao);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task RemoverPrecoItemCotacao(PrecoItemCotacao precoItemCotacao)
+    {
+        _context.PrecoItemCotacoes.Remove(precoItemCotacao);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task AdicionarCodigoEquivalente(ItemCodigoEquivalente itemCodigoEquivalente)
+    {
+        _context.CodigoEquivalentes.Add(itemCodigoEquivalente);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task AtualizarCodigoEquivalente(ItemCodigoEquivalente itemCodigoEquivalente)
+    {
+        _context.CodigoEquivalentes.Update(itemCodigoEquivalente);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task RemoverCodigoEquivalente(ItemCodigoEquivalente itemCodigoEquivalente)
+    {
+        _context.CodigoEquivalentes.Remove(itemCodigoEquivalente);
         await _context.SaveChangesAsync();
     }
 }

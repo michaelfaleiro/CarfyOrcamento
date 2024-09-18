@@ -68,7 +68,13 @@ internal class OrcamentoRepository : IOrcamentoRepository
         await _context.ItemOrcamentos.AddAsync(item);
         await _context.SaveChangesAsync();
     }
-    
+
+    public async Task AtualizarItemAsync(ItemOrcamento item)
+    {
+        _context.ItemOrcamentos.Update(item);
+        await _context.SaveChangesAsync();
+    }
+
     public async Task RemoverItemAsync(ItemOrcamento item)
     {
         _context.ItemOrcamentos.Remove(item);

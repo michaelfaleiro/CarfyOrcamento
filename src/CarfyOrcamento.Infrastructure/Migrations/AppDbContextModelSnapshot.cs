@@ -276,6 +276,9 @@ namespace CarfyOrcamento.Infrastructure.Migrations
                     b.Property<string>("Sku")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TipoProduto")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
@@ -378,6 +381,13 @@ namespace CarfyOrcamento.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Fabricante")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("FabricanteId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("FornecedorId")
                         .HasColumnType("uniqueidentifier");
 
@@ -390,6 +400,9 @@ namespace CarfyOrcamento.Infrastructure.Migrations
 
                     b.Property<string>("NomeFantasia")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Observacao")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PrazoExpedicao")
@@ -477,7 +490,7 @@ namespace CarfyOrcamento.Infrastructure.Migrations
             modelBuilder.Entity("CarfyOrcamento.Core.Entities.Cotacao", b =>
                 {
                     b.HasOne("CarfyOrcamento.Core.Entities.Orcamento", "Orcamento")
-                        .WithMany()
+                        .WithMany("Cotacoes")
                         .HasForeignKey("OrcamentoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -554,7 +567,7 @@ namespace CarfyOrcamento.Infrastructure.Migrations
             modelBuilder.Entity("CarfyOrcamento.Core.Entities.PrecoItemCotacao", b =>
                 {
                     b.HasOne("CarfyOrcamento.Core.Entities.ItemCotacao", "ItemCotacao")
-                        .WithMany()
+                        .WithMany("PrecoItemFornecedor")
                         .HasForeignKey("ItemCotacaoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -577,10 +590,14 @@ namespace CarfyOrcamento.Infrastructure.Migrations
             modelBuilder.Entity("CarfyOrcamento.Core.Entities.ItemCotacao", b =>
                 {
                     b.Navigation("CodigoEquivalentes");
+
+                    b.Navigation("PrecoItemFornecedor");
                 });
 
             modelBuilder.Entity("CarfyOrcamento.Core.Entities.Orcamento", b =>
                 {
+                    b.Navigation("Cotacoes");
+
                     b.Navigation("Itens");
 
                     b.Navigation("ItensAvulsos");

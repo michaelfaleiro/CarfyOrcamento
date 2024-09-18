@@ -8,6 +8,7 @@ public class Orcamento : Entity
     {
         Itens = [];
         ItensAvulsos = [];
+        Cotacoes = [];
     }
 
     public Orcamento(Cliente cliente, Veiculo veiculo, string vendedor, EStatusOrcamento status) 
@@ -17,6 +18,7 @@ public class Orcamento : Entity
         Vendedor = vendedor;
         Itens = [];
         ItensAvulsos = [];
+        Cotacoes = [];
         Status = status;
     }
 
@@ -25,6 +27,7 @@ public class Orcamento : Entity
     public string Vendedor { get; set; } = null!;
     public IList<ItemOrcamento> Itens { get; set; }
     public IList<ItemAvulsoOrcamento> ItensAvulsos { get; set; }
+    public IList<Cotacao> Cotacoes { get; set; } 
     public EStatusOrcamento Status { get; set; }
     public decimal ValorDesconto { get; set; }
    
