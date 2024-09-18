@@ -23,8 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="UseCase\Orcamentos\AlterarStatus\" />
-    <Folder Include="UseCase\Orcamentos\Update\" />
+    <Folder Include="UseCase\Cotacoes\PrecoItem\" />
   </ItemGroup>
 
 </Project>

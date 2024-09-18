@@ -15,7 +15,7 @@ public class RegisterOrcamentoValidator : AbstractValidator<RegisterOrcamentoReq
             .NotEmpty()
             .WithMessage("VeiculoId é obrigatório");
 
-        RuleFor(x => x.VendedorId)
+        RuleFor(x => x.Vendedor)
             .NotEmpty()
             .WithMessage("VendedorId é obrigatório");
         
