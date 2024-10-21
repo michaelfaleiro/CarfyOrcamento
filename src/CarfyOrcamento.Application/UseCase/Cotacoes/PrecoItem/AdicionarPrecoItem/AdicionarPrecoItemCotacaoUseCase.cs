@@ -25,9 +25,11 @@ public class AdicionarPrecoItemCotacaoUseCase
         var itemCotacao = cotacao.Itens.FirstOrDefault(x => x.Id == request.ItemId) 
                           ?? throw new NotFoundException("Item de cotação não encontrado");
         
+        cotacao.UpdatedAt = DateTime.UtcNow;
+        
         var precoItemCotacao = new PrecoItemCotacao(
             request.FornecedorId,
-            request.NomeFantasia,
+            request.Fornecedor,
             request.FabricanteId,
             request.Fabricante,
             request.Sku,

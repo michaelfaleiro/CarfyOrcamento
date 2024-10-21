@@ -1,4 +1,5 @@
 using CarfyOrcamento.Communication.Response.Clientes;
+using CarfyOrcamento.Communication.Response.Cotacoes;
 using CarfyOrcamento.Communication.Response.ItemOrcamento;
 using CarfyOrcamento.Communication.Response.Veiculo;
 using CarfyOrcamento.Core.Enums;
@@ -12,7 +13,14 @@ public record ResponseOrcamentoJson(
     string Vendedor,
     IEnumerable<ResponseItemOrcamentoJson> Itens,
     IEnumerable<ResponseItemAvulsoOrcamentoJson> ItensAvulsos,
+    IEnumerable<ResponseCotacaoShortJson> Cotacoes,
     EStatusOrcamento Status,
+    decimal CupomDesconto,
+    decimal ValorDesconto,
+    decimal TotalProdutos,
+    decimal ValorFrete,
+    string Observacao,
+    string ObservacaoInterna,
     DateTime CreatedAt,
     DateTime? UpdatedAt
     );

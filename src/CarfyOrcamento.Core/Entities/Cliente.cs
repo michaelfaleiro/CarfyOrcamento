@@ -33,7 +33,7 @@ public class Cliente : Entity
     public string Telefone { get; set; } = null!;
     public string Email { get; set; } = string.Empty;
     public IList<Endereco> Enderecos { get; set; }
-    public IList<ClienteVeiculos> Veiculos { get; set; }
+    public IList<Veiculo> Veiculos { get; set; }
     public ETipoPessoa TipoPessoa { get; set; }
     public string Observacao { get; set; } = string.Empty;
 
@@ -48,19 +48,18 @@ public class Cliente : Entity
         TipoPessoa = cliente.TipoPessoa;
         Observacao = cliente.Observacao;
         UpdatedAt = DateTime.UtcNow;
-
     }
-    
+
     public void AdicionarEndereco(Endereco endereco)
     {
         Enderecos.Add(endereco);
         UpdatedAt = DateTime.UtcNow;
     }
-    
+
     public void RemoverEndereco(Endereco endereco)
     {
         Enderecos.Remove(endereco);
         UpdatedAt = DateTime.UtcNow;
     }
-    
+
 }

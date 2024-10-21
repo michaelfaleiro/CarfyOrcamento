@@ -48,7 +48,6 @@ public class ClienteRepository : IClienteRepository
         return await _context.Clientes
             .Include(x => x.Enderecos)
             .Include(x => x.Veiculos)
-            .ThenInclude(x=> x.Veiculo)
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
@@ -58,15 +57,38 @@ public class ClienteRepository : IClienteRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task AdicionarVeiculoAsync(ClienteVeiculos clienteVeiculos)
+    public async Task AdicionarVeiculoAsync(Veiculo veiculo)
     {
-        await _context.ClienteVeiculos.AddAsync(clienteVeiculos);
+        await _context.Veiculos.AddAsync(veiculo);
         await _context.SaveChangesAsync();
     }
 
-    public async Task RemoverVeiculoAsync(ClienteVeiculos clienteVeiculos)
+    public async Task RemoverVeiculoAsync(Veiculo veiculo)
     {
-        _context.ClienteVeiculos.Remove(clienteVeiculos);
+        _context.Veiculos.Remove(veiculo);
         await _context.SaveChangesAsync();
+    }
+
+    public async Task<PagedResponse<Cliente>> SearchAsync(string search, int pageNumber, int pageSize)
+    {
+        var query = _context.Clientes.AsNoTracking();
+
+        var totalItems = await query
+            .Where(c => c.NomeRazaoSocial.Contains(search)
+                        || c.Telefone.Contains(search)
+                        || c.Veiculos.Any(cv => cv.Placa.Contains(search)))
+            .CountAsync();
+
+        var clientes = await query
+            .Include(x => x.Veiculos)
+            .Where(c => c.NomeRazaoSocial.Contains(search)
+                        || c.Telefone.Contains(search)
+                        || c.Veiculos.Any(cv =>
+                            cv.Placa.Contains(search)))
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+
+        return new PagedResponse<Cliente>(clientes, totalItems, pageNumber, pageSize);
     }
 }

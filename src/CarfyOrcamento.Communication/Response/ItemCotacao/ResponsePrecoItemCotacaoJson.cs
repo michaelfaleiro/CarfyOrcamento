@@ -1,9 +1,10 @@
 ﻿namespace CarfyOrcamento.Communication.Response.ItemCotacao;
 public record ResponsePrecoItemCotacaoJson(
     Guid Id,
+    Guid CotacaoId,
     Guid ItemId,
     Guid FornecedorId,
-    string NomeFantasia,
+    string Fornecedor,
     Guid FabricanteId,
     string Fabricante,
     string Sku,

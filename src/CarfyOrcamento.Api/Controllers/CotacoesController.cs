@@ -4,6 +4,7 @@ using CarfyOrcamento.Application.UseCase.Cotacoes.CodigoEquivalente.Update;
 using CarfyOrcamento.Application.UseCase.Cotacoes.GetAll;
 using CarfyOrcamento.Application.UseCase.Cotacoes.GetById;
 using CarfyOrcamento.Application.UseCase.Cotacoes.Item.AdicionarItem;
+using CarfyOrcamento.Application.UseCase.Cotacoes.Item.GetById;
 using CarfyOrcamento.Application.UseCase.Cotacoes.Item.RemoverItem;
 using CarfyOrcamento.Application.UseCase.Cotacoes.Item.UpdateItem;
 using CarfyOrcamento.Application.UseCase.Cotacoes.PrecoItem.AdicionarPrecoItem;
@@ -64,6 +65,17 @@ public class CotacoesController : ControllerBase
     {
         await useCase.ExecuteAsync(request);
         return NoContent();
+    }
+    
+    [HttpGet("itens/{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetItemCotacaoById(
+        [FromServices] GetItemCotacaoByIdUseCase useCase,
+        [FromRoute] Guid id)
+    {
+        var response = await useCase.Execute(id);
+        return Ok(response);
     }
 
     [HttpPost("itens")]

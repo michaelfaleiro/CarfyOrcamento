@@ -26,10 +26,12 @@ public class UpdatePrecoItemCotacaoUseCase
         var preco = item.PrecoItemFornecedor.FirstOrDefault(x => x.Id == request.Id)
                     ?? throw new NotFoundException("Preço de item de cotação não encontrado");
 
+        cotacao.UpdatedAt = DateTime.UtcNow;
+            
         preco.AtualizarPrecoItemCotacao(request.FornecedorId, request.NomeFantasia, request.FabricanteId,
             request.Fabricante, request.Sku, request.Nome, request.ValorCusto, request.ValorVenda,
             request.PrazoExpedicao);
-
+        
         await _cotacaoRepository.AtualizarPrecoItemCotacao(preco);
     }
 

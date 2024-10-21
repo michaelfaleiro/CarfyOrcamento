@@ -18,7 +18,7 @@ public class RemoverVeiculoClienteUseCase
         var cliente = await _clienteRepository.GetByIdAsync(request.ClienteId) 
                       ?? throw new NotFoundException("Cliente não encontrado");
         
-        var clienteVeiculo = cliente.Veiculos.FirstOrDefault(x => x.Veiculo.Id == request.VeiculoId) 
+        var clienteVeiculo = cliente.Veiculos.FirstOrDefault(x => x.Id == request.VeiculoId) 
                              ?? throw new NotFoundException("Veículo não encontrado");
         
         cliente.Veiculos.Remove(clienteVeiculo);

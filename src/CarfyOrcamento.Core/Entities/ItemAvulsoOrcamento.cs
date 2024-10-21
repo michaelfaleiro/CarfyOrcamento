@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using CarfyOrcamento.Exceptions.ExceptionsBase;
 
 namespace CarfyOrcamento.Core.Entities;
@@ -20,7 +22,8 @@ public class ItemAvulsoOrcamento : Entity
         ValorVenda = valorVenda;
         Orcamento = orcamento;
     }
-
+    
+    [Column(TypeName = "uuid")]
     public Guid FabricanteId { get; set; }
     public string Sku { get; set; } = null!;
     public string Fabricante { get; set; } = null!;

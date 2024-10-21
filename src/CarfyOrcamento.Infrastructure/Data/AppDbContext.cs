@@ -11,7 +11,6 @@ public class AppDbContext : DbContext
 
     public DbSet<Cliente> Clientes { get; set; } = null!;
     public DbSet<Veiculo> Veiculos { get; set; } = null!;
-    public DbSet<ClienteVeiculos> ClienteVeiculos { get; set; } = null!;
     public DbSet<Orcamento> Orcamentos { get; set; } = null!;
     public DbSet<ItemOrcamento> ItemOrcamentos { get; set; } = null!;
     public DbSet<ItemAvulsoOrcamento> ItemAvulsoOrcamentos { get; set; } = null!;
@@ -43,5 +42,13 @@ public class AppDbContext : DbContext
        modelBuilder.Entity<Orcamento>()
             .Property(o => o.ValorDesconto)
             .HasColumnType("decimal(18,2)");
+       
+         modelBuilder.Entity<Orcamento>()
+             .Property(o => o.CupomDesconto)
+             .HasColumnType("decimal(18,2)");
+         
+            modelBuilder.Entity<Orcamento>()
+                .Property(o => o.ValorFrete)
+                .HasColumnType("decimal(18,2)");
     }
 }

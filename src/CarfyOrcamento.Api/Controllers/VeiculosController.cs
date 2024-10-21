@@ -18,13 +18,13 @@ public class VeiculosController : ControllerBase
     [ProducesResponseType(typeof(ResponseJson<ResponseVeiculoJson>), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ResponseJson<ResponseVeiculoJson>), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Post(
-        [FromBody] RegisterVeiculoRequest request, 
+        [FromBody] RegisterVeiculoRequest request,
         [FromServices] RegisterVeiculoUseCase useCase)
     {
         var response = await useCase.Execute(request);
         return Created(string.Empty, response);
     }
-    
+
     [HttpGet]
     [ProducesResponseType(typeof(PagedResponse<ResponseVeiculoJson>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll(
@@ -35,7 +35,7 @@ public class VeiculosController : ControllerBase
         var response = await useCase.Execute(pageNumber, pageSize);
         return Ok(response);
     }
-    
+
     [HttpGet("{id:guid}")]
     [ProducesResponseType(typeof(ResponseJson<ResponseVeiculoJson>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
@@ -46,7 +46,7 @@ public class VeiculosController : ControllerBase
         var response = await useCase.Execute(id);
         return Ok(response);
     }
-    
+
     [HttpPut("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
@@ -59,7 +59,7 @@ public class VeiculosController : ControllerBase
         await useCase.Execute(id, request);
         return NoContent();
     }
-    
+
     [HttpDelete("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
@@ -70,5 +70,5 @@ public class VeiculosController : ControllerBase
         await useCase.Execute(id);
         return NoContent();
     }
-    
+
 }

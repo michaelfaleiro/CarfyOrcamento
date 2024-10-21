@@ -15,10 +15,10 @@ public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
 
 
         var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-        optionsBuilder.UseSqlServer(config.GetConnectionString("DefaultConnection"),
+        optionsBuilder.UseNpgsql(config.GetConnectionString("DefaultConnection"),
             b => b.MigrationsAssembly("CarfyOrcamento.Infrastructure"));
-        
+
         return new AppDbContext(optionsBuilder.Options);
     }
-    
+
 }

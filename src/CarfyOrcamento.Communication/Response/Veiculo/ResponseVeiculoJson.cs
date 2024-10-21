@@ -8,6 +8,7 @@ public record ResponseVeiculoJson(
     string Modelo,
     string Cor,
     int Ano,
+    string Motor,
     DateTime CreatedAt,
     DateTime? UpdatedAt
     );

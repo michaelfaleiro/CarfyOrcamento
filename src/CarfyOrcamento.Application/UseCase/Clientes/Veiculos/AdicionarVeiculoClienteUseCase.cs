@@ -27,13 +27,13 @@ public class AdicionarVeiculoClienteUseCase
         var veiculo = await _veiculoRepository.GetByIdAsync(request.VeiculoId) 
                       ?? throw new NotFoundException("Veículo não encontrado");
 
-        if (cliente.Veiculos.Any(x => x.Veiculo.Id == request.VeiculoId))
+        if (cliente.Veiculos.Any(x => x.Id == request.VeiculoId))
             throw new BusinessException("Veículo já cadastrado para o cliente");
         
         
         var clienteVeiculos = new ClienteVeiculos(cliente, veiculo);
        
-        await _clienteRepository.AdicionarVeiculoAsync(clienteVeiculos);
+        await _clienteRepository.AdicionarVeiculoAsync(veiculo);
         
     }
 }

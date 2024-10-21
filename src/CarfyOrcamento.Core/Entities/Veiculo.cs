@@ -2,19 +2,20 @@ namespace CarfyOrcamento.Core.Entities;
 
 public class Veiculo : Entity
 {
-    public Veiculo()
+    protected Veiculo()
     {
-        ClienteVeiculos = [];
+        
     }
-    public Veiculo(string placa, string chassi, string marca, string modelo, string cor, int ano)
+    public Veiculo(Cliente cliente,string placa, string chassi, string marca, string modelo, string cor,  int ano, string motor)
     {
+        Cliente = cliente;
         Placa = placa;
         Chassi = chassi;
         Marca = marca;
         Modelo = modelo;
         Cor = cor;
         Ano = ano;
-        ClienteVeiculos = [];
+        Motor = motor;
     }
 
     public string Placa { get; set; } = string.Empty;
@@ -23,7 +24,8 @@ public class Veiculo : Entity
     public string Modelo { get; set; } = null!;
     public string Cor { get; set; } = string.Empty;
     public int Ano { get; set; }
-    public IList<ClienteVeiculos> ClienteVeiculos { get; set; }
+    public string Motor { get; set; } = string.Empty;
+    public Cliente Cliente { get; set; } = null!;
     
     public void AtualizarVeiculo(Veiculo veiculo)
     {
@@ -33,6 +35,7 @@ public class Veiculo : Entity
         Modelo = veiculo.Modelo;
         Cor = veiculo.Cor;
         Ano = veiculo.Ano;
+        Motor = veiculo.Motor;
         UpdatedAt = DateTime.UtcNow;
     }
 }

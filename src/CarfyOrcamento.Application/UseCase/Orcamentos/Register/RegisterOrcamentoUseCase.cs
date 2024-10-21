@@ -29,12 +29,12 @@ public class RegisterOrcamentoUseCase
         var cliente = await _clienteRepository.GetByIdAsync(request.ClienteId)
                       ?? throw new NotFoundException("Cliente não encontrado");
         
-        var veiculo = cliente.Veiculos.FirstOrDefault(x => x.Veiculo.Id == request.VeiculoId)
-                      ?? throw new NotFoundException("Veículo não encontrado");
+        var veiculo = cliente.Veiculos.FirstOrDefault(x=>x.Id == request.VeiculoId)
+                      ?? throw new NotFoundException("Veiculo não encontrado"); 
         
         var entity = new Orcamento(
             cliente,
-            veiculo.Veiculo,
+            veiculo,
             request.Vendedor,
             request.Status
         );
@@ -44,8 +44,8 @@ public class RegisterOrcamentoUseCase
         var result = new ResponseOrcamentoShortJson(
             orcamento.Id, new ResponseClienteShortJson(
                 cliente.Id, cliente.NomeRazaoSocial, cliente.Telefone, cliente.Email, cliente.TipoPessoa), 
-            new ResponseVeiculoShortJson(veiculo.Veiculo.Id, veiculo.Veiculo.Placa, 
-                veiculo.Veiculo.Modelo, veiculo.Veiculo.Chassi)
+            new ResponseVeiculoShortJson(veiculo.Id, veiculo.Placa, 
+                veiculo.Modelo, veiculo.Chassi)
             ,orcamento.Vendedor, orcamento.Status, orcamento.CreatedAt, orcamento.UpdatedAt);
 
         return new ResponseJson<ResponseOrcamentoShortJson>(result);

@@ -34,9 +34,10 @@ public class GetByIdCotacaoUseCase
                     item.TipoProduto,
                     item.PrecoItemFornecedor.Select(preco => new ResponsePrecoItemCotacaoJson(
                         preco.Id,
+                        item.Cotacao.Id,
                         preco.ItemCotacao.Id,
                         preco.FornecedorId,
-                        preco.NomeFantasia,
+                        preco.Fornecedor,
                         preco.FabricanteId,
                         preco.Fabricante,
                         preco.Sku,
@@ -46,7 +47,18 @@ public class GetByIdCotacaoUseCase
                         preco.Observacao,
                         preco.CreatedAt,
                         preco.UpdatedAt
-                    ))
+                    )).ToList(),
+                    item.CodigoEquivalentes.Select(codigo => new ResponseCodigoEquivalenteCotacaoJson(
+                        codigo.Id,
+                        codigo.Sku,
+                        codigo.FabricanteId,
+                        codigo.Fabricante,
+                        codigo.TipoProdutoEquivalente,
+                        codigo.CreatedAt,
+                        codigo.UpdatedAt
+                    )).ToList(),
+                    item.CreatedAt,
+                    item.UpdatedAt
                 )),
                 cotacao.CreatedAt,
                 cotacao.UpdatedAt
