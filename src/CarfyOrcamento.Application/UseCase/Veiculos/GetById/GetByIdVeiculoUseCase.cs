@@ -29,6 +29,7 @@ public class GetByIdVeiculoUseCase
                 veiculo.Modelo,
                 veiculo.Cor,
                 veiculo.Ano,
+                veiculo.Motor,
                 veiculo.CreatedAt,
                 veiculo.UpdatedAt
             )

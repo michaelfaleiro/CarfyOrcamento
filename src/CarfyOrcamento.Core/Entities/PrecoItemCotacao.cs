@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace CarfyOrcamento.Core.Entities;
 
 public class PrecoItemCotacao : Entity
@@ -6,11 +8,11 @@ public class PrecoItemCotacao : Entity
     {
     }
 
-    public PrecoItemCotacao(Guid fornecedorId, string nomeFantasia, Guid fabricanteId, string fabricante, 
+    public PrecoItemCotacao(Guid fornecedorId, string fornecedor, Guid fabricanteId, string fabricante, 
         string sku, string nome, decimal valorCusto, decimal valorVenda, int prazoExpedicao, ItemCotacao itemCotacao)
     {
         FornecedorId = fornecedorId;
-        NomeFantasia = nomeFantasia;
+        Fornecedor = fornecedor;
         FabricanteId = fabricanteId;
         Fabricante = fabricante;
         Sku = sku;
@@ -20,9 +22,10 @@ public class PrecoItemCotacao : Entity
         PrazoExpedicao = prazoExpedicao;
         ItemCotacao = itemCotacao;
     }
-
+    [Column(TypeName = "uuid")]
     public Guid FornecedorId { get; set; }
-    public string NomeFantasia { get; set; } = null!;
+    public string Fornecedor { get; set; } = null!;
+    [Column(TypeName = "uuid")]
     public Guid FabricanteId { get; set; }
     public string Fabricante { get; set; } = null!;
     public string Sku { get; set; } = null!;
@@ -37,7 +40,7 @@ public class PrecoItemCotacao : Entity
         string fabricante, string sku, string nome, decimal valorCusto, decimal valorVenda, int prazoExpedicao)
     {
         FornecedorId = fornecedorId;
-        NomeFantasia = nomeFantasia;
+        Fornecedor = nomeFantasia;
         FabricanteId = fabricanteId;
         Fabricante = fabricante;
         Sku = sku;

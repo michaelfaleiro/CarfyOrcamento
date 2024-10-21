@@ -23,12 +23,14 @@ public class UpdateVeiculoUseCase
             ?? throw new NotFoundException("Veiculo não encontrado");
         
         veiculo.AtualizarVeiculo(new Veiculo(
+            veiculo.Cliente,
             request.Placa,
             request.Chassi,
             request.Marca,
             request.Modelo,
             request.Cor,
-            request.Ano
+            request.Ano,
+            request.Motor
         ));
         
         await _veiculoRepository.UpdateAsync(veiculo);

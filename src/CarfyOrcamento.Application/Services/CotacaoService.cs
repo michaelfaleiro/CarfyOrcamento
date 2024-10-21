@@ -4,6 +4,7 @@ using CarfyOrcamento.Application.UseCase.Cotacoes.CodigoEquivalente.Update;
 using CarfyOrcamento.Application.UseCase.Cotacoes.GetAll;
 using CarfyOrcamento.Application.UseCase.Cotacoes.GetById;
 using CarfyOrcamento.Application.UseCase.Cotacoes.Item.AdicionarItem;
+using CarfyOrcamento.Application.UseCase.Cotacoes.Item.GetById;
 using CarfyOrcamento.Application.UseCase.Cotacoes.Item.RemoverItem;
 using CarfyOrcamento.Application.UseCase.Cotacoes.Item.UpdateItem;
 using CarfyOrcamento.Application.UseCase.Cotacoes.PrecoItem.AdicionarPrecoItem;
@@ -31,6 +32,7 @@ public static class CotacaoService
         services.AddScoped<AdicionarCodigoEquivalenteUseCase>();
         services.AddScoped<RemoverCodigoEquivalenteUseCase>();
         services.AddScoped<UpdateCodigoEquivalenteUseCase>();
+        services.AddScoped<GetItemCotacaoByIdUseCase>();
 
         return services;
     }

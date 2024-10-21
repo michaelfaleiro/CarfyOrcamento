@@ -8,20 +8,21 @@ namespace CarfyOrcamento.Infrastructure.Data.Repositories.Orcamentos;
 internal class OrcamentoRepository : IOrcamentoRepository
 {
     private readonly AppDbContext _context;
-    
+
     public OrcamentoRepository(AppDbContext context)
     {
         _context = context;
     }
-    
+
     public async Task<Orcamento?> GetByIdAsync(Guid id)
     {
         var entity = await _context.Orcamentos
             .Include(x => x.Cliente)
             .Include(x => x.Veiculo)
-            .Include(x=> x.Itens)
-            .Include(x=> x.ItensAvulsos)
-            .FirstOrDefaultAsync(x=> x.Id == id);
+            .Include(x => x.Itens)
+            .Include(x => x.ItensAvulsos)
+            .Include(x => x.Cotacoes)
+            .FirstOrDefaultAsync(x => x.Id == id);
         return entity;
     }
 
@@ -31,16 +32,16 @@ internal class OrcamentoRepository : IOrcamentoRepository
             .AsNoTracking()
             .Include(x => x.Cliente)
             .Include(x => x.Veiculo);
-            
-        
+
+
         var data = await query
-            .OrderBy(x=> x.CreatedAt)
+            .OrderBy(x => x.CreatedAt)
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync();
-        
+
         var count = await query.CountAsync();
-        
+
         return new PagedResponse<Orcamento>(data, count, pageNumber, pageSize);
     }
 

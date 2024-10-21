@@ -16,7 +16,7 @@ public class AdicionarPrecoItemCotacaoValidator : AbstractValidator<AdicionarPre
         RuleFor(x => x.FornecedorId)
             .NotEmpty().WithMessage("FornecedorId é obrigatório");
 
-        RuleFor(x => x.NomeFantasia)
+        RuleFor(x => x.Fornecedor)
             .NotEmpty().WithMessage("NomeFantasia é obrigatório");
 
         RuleFor(x => x.FabricanteId)

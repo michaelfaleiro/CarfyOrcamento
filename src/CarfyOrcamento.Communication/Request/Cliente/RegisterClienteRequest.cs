@@ -1,4 +1,3 @@
-using System;
 using CarfyOrcamento.Core.Enums;
 
 namespace CarfyOrcamento.Communication.Request.Cliente;

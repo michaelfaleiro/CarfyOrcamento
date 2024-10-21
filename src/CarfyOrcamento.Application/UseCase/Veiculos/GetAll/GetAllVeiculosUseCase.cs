@@ -26,6 +26,7 @@ public class GetAllVeiculosUseCase
                 veiculo.Modelo,
                 veiculo.Cor,
                 veiculo.Ano,
+                veiculo.Motor,
                 veiculo.CreatedAt,
                 veiculo.UpdatedAt
             )), veiculos.TotalCount, veiculos.PageNumber, veiculos.PageSize

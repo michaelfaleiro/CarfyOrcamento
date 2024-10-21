@@ -1,5 +1,6 @@
 using CarfyOrcamento.Communication.Response;
 using CarfyOrcamento.Communication.Response.Clientes;
+using CarfyOrcamento.Communication.Response.Cotacoes;
 using CarfyOrcamento.Communication.Response.ItemOrcamento;
 using CarfyOrcamento.Communication.Response.Orcamentos;
 using CarfyOrcamento.Communication.Response.Veiculo;
@@ -40,6 +41,7 @@ public class GetByIdOrcamentoUseCase
                 orcamento.Veiculo.Modelo,
                 orcamento.Veiculo.Cor,
                 orcamento.Veiculo.Ano,
+                orcamento.Veiculo.Motor,
                 orcamento.Veiculo.CreatedAt,
                 orcamento.Veiculo.UpdatedAt
             ),
@@ -66,7 +68,20 @@ public class GetByIdOrcamentoUseCase
                 item.CreatedAt,
                 item.UpdatedAt
             )).ToList(),
+            orcamento.Cotacoes.Select(cotacao => new ResponseCotacaoShortJson(
+                cotacao.Id,
+                cotacao.OrcamentoId,
+                cotacao.Status,
+                cotacao.CreatedAt,
+                cotacao.UpdatedAt
+            )).ToList(),
             orcamento.Status,
+            orcamento.CupomDesconto,
+            orcamento.ValorDesconto,
+            orcamento.TotalProdutos,
+            orcamento.ValorFrete,
+            orcamento.Observacao,
+            orcamento.ObservacaoInterna,
             orcamento.CreatedAt,
             orcamento.UpdatedAt
         ));

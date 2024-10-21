@@ -7,4 +7,8 @@ public record ResponseItemCotacaoShortJson(
     string? Sku,
     string Descricao,
     int Quantidade,
-    ETipoProduto TipoProduto);
+    ETipoProduto TipoProduto,
+    IEnumerable<ResponseCodigoEquivalenteCotacaoJson> CodigosEquivalentes,
+    DateTime CreatedAt,
+    DateTime? UpdatedAt
+    );

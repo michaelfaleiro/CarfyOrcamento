@@ -8,5 +8,8 @@ public record ResponseItemCotacaoJson(
     string Descricao,
     int Quantidade,
     ETipoProduto TipoProduto,
-    IEnumerable<ResponsePrecoItemCotacaoJson> Precos
+    IEnumerable<ResponsePrecoItemCotacaoJson> Precos,
+    IEnumerable<ResponseCodigoEquivalenteCotacaoJson> CodigoEquivalentes,
+    DateTime CreatedAt,
+    DateTime? UpdatedAt
     );

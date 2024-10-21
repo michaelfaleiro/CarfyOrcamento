@@ -13,4 +13,5 @@ public interface ICotacaoRepository : IRepository<Cotacao>
     Task AdicionarCodigoEquivalente(ItemCodigoEquivalente itemCodigoEquivalente);
     Task AtualizarCodigoEquivalente(ItemCodigoEquivalente itemCodigoEquivalente);
     Task RemoverCodigoEquivalente(ItemCodigoEquivalente itemCodigoEquivalente);
+    Task<ItemCotacao?> GetItemById(Guid itemId);
 }

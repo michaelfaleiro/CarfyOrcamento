@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using CarfyOrcamento.Core.Enums;
 using CarfyOrcamento.Exceptions.ExceptionsBase;
 
@@ -21,6 +22,7 @@ public class ItemCodigoEquivalente : Entity
     }
 
     public string Sku { get; set; } = null!;
+    [Column(TypeName = "uuid")]
     public Guid FabricanteId { get; set; }
     public string Fabricante { get; set; } = null!;
     public ETipoProdutoEquivalente TipoProdutoEquivalente { get; set; }

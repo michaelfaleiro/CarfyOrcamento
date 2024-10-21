@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using CarfyOrcamento.Core.Enums;
 
 namespace CarfyOrcamento.Core.Entities;
@@ -16,7 +18,8 @@ public class Cotacao : Entity
         Status = status;
         Itens = [];
     }
-
+    
+    [Column(TypeName = "uuid")]
     public Guid OrcamentoId { get; set; }
     public Orcamento Orcamento { get; set; } = null!;
     public IList<ItemCotacao> Itens { get; set; }

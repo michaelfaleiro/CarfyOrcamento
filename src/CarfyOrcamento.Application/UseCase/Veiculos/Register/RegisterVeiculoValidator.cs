@@ -9,22 +9,27 @@ public class RegisterVeiculoValidator : AbstractValidator<RegisterVeiculoRequest
     {
         RuleFor(x => x.Marca)
             .NotEmpty().WithMessage("Marca é obrigatório")
-            .MaximumLength(100).WithMessage("Marca deve ter no máximo 100 caracteres");
+            .MaximumLength(100)
+            .WithMessage("Marca deve ter no máximo 100 caracteres");
 
         RuleFor(x => x.Modelo)
             .NotEmpty().WithMessage("Modelo é obrigatório")
-            .MaximumLength(100).WithMessage("Modelo deve ter no máximo 100 caracteres");
-        
+            .MaximumLength(100)
+            .WithMessage("Modelo deve ter no máximo 100 caracteres");
+
         RuleFor(x => x.Placa)
-            .NotEmpty().WithMessage("Placa é obrigatório")
-            .MaximumLength(7).WithMessage("Placa deve ter no máximo 7 caracteres");
+            .Must(chassi => string.IsNullOrEmpty(chassi) || chassi.Length == 7)
+            .WithMessage("Placa deve ter 7 caracteres");
 
-        RuleFor(x => x.Cor)
-            .NotEmpty().When(x => !string.IsNullOrEmpty(x.Cor))
-            .WithMessage("Cor é obrigatório")
-            .MaximumLength(20).WithMessage("Cor deve ter no máximo 20 caracteres");
+        RuleFor(x => x.Ano)
+            .NotEmpty().WithMessage("Ano é obrigatório")
+            .GreaterThan(1900).WithMessage("Ano deve ser maior que 1900")
+            .LessThan(2100).WithMessage("Ano deve ser menor que 2100");
 
-        
+        RuleFor(x => x.Chassi)
+            .Must(chassi => string.IsNullOrEmpty(chassi) || chassi.Length == 17)
+            .WithMessage("Chassi deve ter 17 caracteres");
+
     }
-    
+
 }

@@ -3,7 +3,7 @@ public record AdicionarPrecoItemCotacaoRequest(
     Guid CotacaoId,
     Guid ItemId,
     Guid FornecedorId,
-    string NomeFantasia,
+    string Fornecedor,
     Guid FabricanteId,
     string Fabricante,
     string Sku,

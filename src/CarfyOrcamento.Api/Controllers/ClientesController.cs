@@ -2,6 +2,7 @@ using CarfyOrcamento.Application.UseCase.Clientes.Delete;
 using CarfyOrcamento.Application.UseCase.Clientes.GetAll;
 using CarfyOrcamento.Application.UseCase.Clientes.GetById;
 using CarfyOrcamento.Application.UseCase.Clientes.Register;
+using CarfyOrcamento.Application.UseCase.Clientes.Search;
 using CarfyOrcamento.Application.UseCase.Clientes.Update;
 using CarfyOrcamento.Application.UseCase.Clientes.Veiculos;
 using CarfyOrcamento.Communication.Request.Cliente;
@@ -72,7 +73,7 @@ namespace CarfyOrcamento.Api.Controllers
             await useCase.Execute(id);
             return NoContent();
         }
-        
+
         [HttpPost("veiculos")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
@@ -93,6 +94,18 @@ namespace CarfyOrcamento.Api.Controllers
         {
             await useCase.RemoverVeiculoAsync(request);
             return NoContent();
+        }
+
+        [HttpGet("search")]
+        [ProducesResponseType(typeof(PagedResponse<ResponseClienteShortJson>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> Search(
+            [FromQuery] string search,
+            [FromServices] SearchByNameTelefonePlacaUseCase useCase,
+            [FromQuery] int pageNumber = Configuration.DefaultPageNumber,
+            [FromQuery] int pageSize = Configuration.DefaultPageSize)
+        {
+            var response = await useCase.Execute(search, pageNumber, pageSize);
+            return Ok(response);
         }
     }
 }

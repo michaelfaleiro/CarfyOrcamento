@@ -1,3 +1,5 @@
+using CarfyOrcamento.Application.UseCase.Orcamentos.Desconto;
+using CarfyOrcamento.Application.UseCase.Orcamentos.Frete;
 using CarfyOrcamento.Application.UseCase.Orcamentos.GetAll;
 using CarfyOrcamento.Application.UseCase.Orcamentos.GetById;
 using CarfyOrcamento.Application.UseCase.Orcamentos.Item.AdicionarItem;
@@ -6,6 +8,7 @@ using CarfyOrcamento.Application.UseCase.Orcamentos.Item.UpdateItem;
 using CarfyOrcamento.Application.UseCase.Orcamentos.ItemAvulso.AdicionarItemAvulso;
 using CarfyOrcamento.Application.UseCase.Orcamentos.ItemAvulso.RemoverItemAvulso;
 using CarfyOrcamento.Application.UseCase.Orcamentos.ItemAvulso.UpdateItemAvulso;
+using CarfyOrcamento.Application.UseCase.Orcamentos.Observacao;
 using CarfyOrcamento.Application.UseCase.Orcamentos.Register;
 using CarfyOrcamento.Application.UseCase.Orcamentos.Status;
 using CarfyOrcamento.Communication.Request.Orcamento;
@@ -49,12 +52,67 @@ public class OrcamentosController : ControllerBase
         return Ok(await useCase.ExecuteAsync(id));
     }
     
-    [HttpPost("status")]
+    [HttpPost("desconto")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> UpdateDescontoAsync(
+        [FromBody] AdicionarDescontoOrcamentoRequest request,
+        [FromServices] DescontoOrcamentoUseCase useCase)
+    {
+        await useCase.ExecuteAsync(request);
+        return NoContent();
+    }
+    
+    [HttpPost("cupom")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> UpdateCupomAsync(
+        [FromBody] AdicionarCupomDescontoOrcamentoRequest orcamentoRequest,
+        [FromServices] CupomDescontoUseCase useCase)
+    {
+        await useCase.ExecuteAsync(orcamentoRequest);
+        return NoContent();
+    }
+    
+    [HttpPost("frete")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> UpdateFreteAsync(
+        [FromBody] AdicionarFreteRequest request,
+        [FromServices] FreteOrcamentoUseCase useCase)
+    {
+        await useCase.ExecuteAsync(request);
+        return NoContent();
+    }
+    
+    [HttpPut("status")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateStatusAsync(
         [FromBody] AlterarStatusOrcamentoRequest request,
         [FromServices] AlterarStatusOrcamentoUseCase useCase)
+    {
+        await useCase.ExecuteAsync(request);
+        return NoContent();
+    }
+    
+    [HttpPost("observacao")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> AdicionarObservacaoAsync(
+        [FromBody] AdicionarObservacaoOrcamentoRequest request,
+        [FromServices] AdicionarObservacaoOrcamentoUseCase useCase)
+    {
+        await useCase.ExecuteAsync(request);
+        return NoContent();
+    }
+    
+    [HttpPost("observacao-interna")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> AdicionarObservacaoInternaAsync(
+        [FromBody] AdicionarObservacaoInternaOrcamentoRequest request,
+        [FromServices] AdicionarObservacaoInternaOrcamentoUseCase useCase)
     {
         await useCase.ExecuteAsync(request);
         return NoContent();

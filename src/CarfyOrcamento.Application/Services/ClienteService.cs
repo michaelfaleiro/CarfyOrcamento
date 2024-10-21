@@ -2,6 +2,7 @@ using CarfyOrcamento.Application.UseCase.Clientes.Delete;
 using CarfyOrcamento.Application.UseCase.Clientes.GetAll;
 using CarfyOrcamento.Application.UseCase.Clientes.GetById;
 using CarfyOrcamento.Application.UseCase.Clientes.Register;
+using CarfyOrcamento.Application.UseCase.Clientes.Search;
 using CarfyOrcamento.Application.UseCase.Clientes.Update;
 using CarfyOrcamento.Application.UseCase.Clientes.Veiculos;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,6 +20,7 @@ public static class ClienteService
         services.AddScoped<DeleteClienteUseCase>();
         services.AddScoped<AdicionarVeiculoClienteUseCase>();
         services.AddScoped<RemoverVeiculoClienteUseCase>();
+        services.AddScoped<SearchByNameTelefonePlacaUseCase>();
 
         return services;
     }
