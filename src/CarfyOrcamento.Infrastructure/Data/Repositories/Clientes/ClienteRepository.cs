@@ -71,7 +71,8 @@ public class ClienteRepository : IClienteRepository
 
     public async Task<PagedResponse<Cliente>> SearchAsync(string search, int pageNumber, int pageSize)
     {
-        var query = _context.Clientes.AsNoTracking();
+        var query = _context.Clientes.AsNoTracking()
+            .Include(c => c.Veiculos);
 
         var totalItems = await query
             .Where(c => c.NomeRazaoSocial.Contains(search)
@@ -80,11 +81,9 @@ public class ClienteRepository : IClienteRepository
             .CountAsync();
 
         var clientes = await query
-            .Include(x => x.Veiculos)
             .Where(c => c.NomeRazaoSocial.Contains(search)
                         || c.Telefone.Contains(search)
-                        || c.Veiculos.Any(cv =>
-                            cv.Placa.Contains(search)))
+                        || c.Veiculos.Any(cv => cv.Placa.Contains(search)))
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync();

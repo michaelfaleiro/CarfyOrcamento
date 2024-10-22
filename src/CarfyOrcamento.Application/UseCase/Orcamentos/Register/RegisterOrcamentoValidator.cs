@@ -18,6 +18,6 @@ public class RegisterOrcamentoValidator : AbstractValidator<RegisterOrcamentoReq
         RuleFor(x => x.Vendedor)
             .NotEmpty()
             .WithMessage("VendedorId é obrigatório");
-        
+
     }
 }

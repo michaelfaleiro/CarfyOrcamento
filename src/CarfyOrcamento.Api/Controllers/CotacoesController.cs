@@ -16,6 +16,7 @@ using CarfyOrcamento.Communication.Request.Cotacao;
 using CarfyOrcamento.Communication.Request.Cotacao.CodigoEquivalente;
 using CarfyOrcamento.Communication.Response;
 using CarfyOrcamento.Communication.Response.Cotacoes;
+using CarfyOrcamento.Communication.Response.ItemCotacao;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarfyOrcamento.Api.Controllers;
@@ -66,9 +67,9 @@ public class CotacoesController : ControllerBase
         await useCase.ExecuteAsync(request);
         return NoContent();
     }
-    
+
     [HttpGet("itens/{id:guid}")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseJson<ResponseItemCotacaoJson>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetItemCotacaoById(
         [FromServices] GetItemCotacaoByIdUseCase useCase,

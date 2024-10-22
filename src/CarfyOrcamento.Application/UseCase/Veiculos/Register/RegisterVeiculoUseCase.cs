@@ -25,7 +25,7 @@ public class RegisterVeiculoUseCase
 
         var cliente = await _clienteRepository.GetByIdAsync(request.ClienteId)
             ?? throw new NotFoundException("Cliente não encontrado");
-        
+
         var veiculo = new Veiculo(
             cliente,
             request.Placa,
@@ -42,6 +42,7 @@ public class RegisterVeiculoUseCase
         return new ResponseJson<ResponseVeiculoJson>(
             new ResponseVeiculoJson(
                 veiculo.Id,
+                veiculo.Cliente.Id,
                 veiculo.Placa,
                 veiculo.Chassi,
                 veiculo.Marca,

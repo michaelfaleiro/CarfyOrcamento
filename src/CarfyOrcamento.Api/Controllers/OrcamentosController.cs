@@ -36,10 +36,13 @@ public class OrcamentosController : ControllerBase
     [ProducesResponseType(typeof(PagedResponse<ResponseOrcamentoShortJson>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAsync(
         [FromServices] GetAllOrcamentosUseCase useCase,
+        [FromQuery] string? status,
+        [FromQuery] string? orderBy,
         [FromQuery] int pageNumber = Configuration.DefaultPageNumber,
-        [FromQuery] int pageSize = Configuration.DefaultPageSize)
+        [FromQuery] int pageSize = Configuration.DefaultPageSize
+            )
     {
-        return Ok(await useCase.ExecuteAsync(pageNumber, pageSize));
+        return Ok(await useCase.ExecuteAsync(pageNumber, pageSize, status, orderBy));
     }
     
     [HttpGet("{id:guid}")]

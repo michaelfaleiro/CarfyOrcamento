@@ -16,6 +16,7 @@ public class AdicionarItemCotacaoUseCase
 
     public async Task ExecuteAsync(AdicionarItemCotacaoRequest request)
     {
+        Validate(request);
         var cotacao = await _cotacaoRepository.GetByIdAsync(request.CotacaoId)
             ?? throw new NotFoundException("Cotação não encontrada");
 

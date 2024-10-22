@@ -1,4 +1,5 @@
 using CarfyOrcamento.Core.Entities;
+using CarfyOrcamento.Core.Enums;
 using CarfyOrcamento.Core.Repositories.Orcamentos;
 using CarfyOrcamento.Core.Response;
 using Microsoft.EntityFrameworkCore;
@@ -63,6 +64,44 @@ internal class OrcamentoRepository : IOrcamentoRepository
         _context.Orcamentos.Remove(entity);
         await _context.SaveChangesAsync();
     }
+
+    public async Task<PagedResponse<Orcamento>> GetAllAsync(int pageNumber, int pageSize, string? status , string? orderBy = null)
+{
+    IQueryable<Orcamento> query = _context.Orcamentos
+        .AsNoTracking()
+        .Include(x => x.Cliente)
+        .Include(x => x.Veiculo);
+
+    if (!string.IsNullOrWhiteSpace(status) && Enum.TryParse<EStatusOrcamento>(status, out var statusEnum))
+    {
+        query = query.Where(x => x.Status == statusEnum);
+    }
+
+    if (!string.IsNullOrWhiteSpace(orderBy))
+    {
+        query = orderBy switch
+        {
+            "CreatedAt" => query.OrderBy(x => x.CreatedAt),
+            "CreatedAtDesc" => query.OrderByDescending(x => x.CreatedAt),
+            "UpdatedAt" => query.OrderBy(x => x.UpdatedAt),
+            "UpdatedAtDesc" => query.OrderByDescending(x => x.UpdatedAt),
+            _ => query.OrderBy(x => x.CreatedAt) // Default sorting
+        };
+    }
+    else
+    {
+        query = query.OrderBy(x => x.CreatedAt); // Default sorting
+    }
+
+    var data = await query
+        .Skip((pageNumber - 1) * pageSize)
+        .Take(pageSize)
+        .ToListAsync();
+
+    var count = await query.CountAsync();
+
+    return new PagedResponse<Orcamento>(data, count, pageNumber, pageSize);
+}
 
     public async Task AdicionarItemAsync(ItemOrcamento item)
     {

@@ -27,13 +27,12 @@ public class AdicionarItemAvulsoValidator : AbstractValidator<AdicionarItemAvuls
             .GreaterThan(0)
             .WithMessage("Valor de venda deve ser maior que 0");
 
-        RuleFor(x => x.FabricanteId)
-            .NotEmpty()
-            .WithMessage("O id do fabricante é obrigatório.");
-
         RuleFor(x => x.Fabricante)
             .NotEmpty()
             .WithMessage("O fabricante é obrigatório.");
-    }
 
+        RuleFor(x => x.FabricanteId)
+            .NotEmpty()
+            .WithMessage("O id do fabricante é obrigatório.");
+    }
 }

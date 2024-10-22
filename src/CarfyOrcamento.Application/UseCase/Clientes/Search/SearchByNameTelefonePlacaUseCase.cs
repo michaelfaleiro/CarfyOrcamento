@@ -28,6 +28,7 @@ public class SearchByNameTelefonePlacaUseCase
             cliente.Email,
             cliente.Veiculos.Select(veiculo => new ResponseVeiculoJson(
                 veiculo.Id,
+                veiculo.Cliente.Id,
                 veiculo.Placa,
                 veiculo.Chassi,
                 veiculo.Marca,

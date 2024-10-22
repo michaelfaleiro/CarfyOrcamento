@@ -15,6 +15,7 @@ public class RemoverItemAvulsoOrcamentoUseCase
 
     public async Task ExecuteAsync(RemoverItemAvulsoOrcamentoRequest request)
     {
+        Validate(request);
         var orcamento = await _orcamentoRepository.GetByIdAsync(request.OrcamentoId)
                         ?? throw new Exception("Orcamento não encontrado");
 

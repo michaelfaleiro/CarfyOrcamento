@@ -2,6 +2,7 @@ namespace CarfyOrcamento.Communication.Response.Veiculo;
 
 public record ResponseVeiculoJson(
     Guid Id,
+    Guid ClienteId,
     string Placa,
     string Chassi,
     string Marca,

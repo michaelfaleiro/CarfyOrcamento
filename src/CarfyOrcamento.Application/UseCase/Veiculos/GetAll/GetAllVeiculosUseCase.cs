@@ -7,28 +7,22 @@ namespace CarfyOrcamento.Application.UseCase.Veiculos.GetAll;
 public class GetAllVeiculosUseCase
 {
     private readonly IVeiculoRepository _veiculoRepository;
-    
+
     public GetAllVeiculosUseCase(IVeiculoRepository veiculoRepository)
     {
         _veiculoRepository = veiculoRepository;
     }
-    
-    public async Task<PagedResponse<ResponseVeiculoJson>> Execute(int pageNumber, int pageSize)
+
+    public async Task<PagedResponse<ResponseVeiculoShortJson>> Execute(int pageNumber, int pageSize)
     {
         var veiculos = await _veiculoRepository.GetAllAsync(pageNumber, pageSize);
-        
-        return new PagedResponse<ResponseVeiculoJson>(
-            veiculos.Data.Select(veiculo => new ResponseVeiculoJson(
+
+        return new PagedResponse<ResponseVeiculoShortJson>(
+            veiculos.Data.Select(veiculo => new ResponseVeiculoShortJson(
                 veiculo.Id,
                 veiculo.Placa,
-                veiculo.Chassi,
-                veiculo.Marca,
                 veiculo.Modelo,
-                veiculo.Cor,
-                veiculo.Ano,
-                veiculo.Motor,
-                veiculo.CreatedAt,
-                veiculo.UpdatedAt
+                veiculo.Chassi
             )), veiculos.TotalCount, veiculos.PageNumber, veiculos.PageSize
         );
     }

@@ -15,6 +15,7 @@ public class RemoverItemCotacaoUseCase
 
     public async Task ExecuteAsync(RemoverItemCotacaoRequest request)
     {
+        Validate(request);
         var cotacao = await _cotacaoRepository.GetByIdAsync(request.CotacaoId)
                       ?? throw new NotFoundException("Cotação não encontrada");
 
