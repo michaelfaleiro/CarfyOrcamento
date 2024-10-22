@@ -1,21 +1,29 @@
 # This is a generated file. Not intended for manual editing.
+version: "3.8"
 services:
   carfyorcamento.api:
     build:
-      context: "C:\\Projetos\\Carfy\\CarfyOrcamento\\src\\CarfyOrcamento.Api"
+      context: "/Users/michaelfaleiro/Projetos/Carfy/CarfyOrcamento"
       dockerfile: "Dockerfile"
-      target: "base"
-    command: []
+      args:
+        BUILD_CONFIGURATION: "Debug"
     entrypoint:
-    - "dotnet"
-    - "/app/bin/Debug/net8.0/CarfyOrcamento.Api.dll"
+    - "/opt/rider-debugger/linux-musl-arm64/dotnet/dotnet"
+    - "exec"
+    - "--runtimeconfig"
+    - "/opt/rider-debugger/JetBrains.Debugger.Worker.runtimeconfig.json"
+    - "/opt/rider-debugger/JetBrains.Debugger.Worker.exe"
+    - "--mode=server"
+    - "--frontend-port=57100"
+    - "--backend-port=57300"
+    - "--timeout=60"
     environment:
-      ASPNETCORE_ENVIRONMENT: "Development"
-      DOTNET_USE_POLLING_FILE_WATCHER: "true"
-    image: "carfyorcamento.api:dev"
-    ports: []
+      RIDER_DEBUGGER_LOG_DIR: "/var/opt/rider-debugger"
+      RESHARPER_LOG_CONF: "/etc/opt/rider-debugger/backend-log.xml"
+    ports:
+    - "127.0.0.1:57000:57100"
+    - "127.0.0.1:57200:57300"
     volumes:
-    - "C:\\Users\\maico\\.nuget\\packages:/home/app/.nuget/packages"
-    - "C:\\Projetos\\Carfy\\CarfyOrcamento\\src\\CarfyOrcamento.Api:/app:rw"
-    - "C:\\Projetos\\Carfy\\CarfyOrcamento:/src:rw"
-    working_dir: "/app"
+    - "/Users/michaelfaleiro/.local/share/JetBrains/RiderRemoteDebugger/2024.2.6/LinuxMuslArm64:/opt/rider-debugger"
+    - "/Users/michaelfaleiro/Applications/Rider.app/Contents/bin:/etc/opt/rider-debugger/backend-log.xml"
+    - "/Users/michaelfaleiro/Library/Logs/JetBrains/Rider2024.2/DebuggerWorker/JetBrains.Debugger.Worker.2024_10_22_18_27_45:/var/opt/rider-debugger:rw"

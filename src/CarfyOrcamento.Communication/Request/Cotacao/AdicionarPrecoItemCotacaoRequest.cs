@@ -2,12 +2,14 @@
 public record AdicionarPrecoItemCotacaoRequest(
     Guid CotacaoId,
     Guid ItemId,
-    Guid FornecedorId,
+    string FornecedorId,
     string Fornecedor,
-    Guid FabricanteId,
+    string FabricanteId,
     string Fabricante,
+    int Quantidade,
     string Sku,
-    string Nome,
+    string Descricao,
     decimal ValorCusto,
     decimal ValorVenda,
-    int PrazoExpedicao);
+    int PrazoExpedicao,
+    string Observacao);

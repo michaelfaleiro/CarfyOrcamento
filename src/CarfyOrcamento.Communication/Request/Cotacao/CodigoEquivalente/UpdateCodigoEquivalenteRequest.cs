@@ -7,6 +7,6 @@ public record UpdateCodigoEquivalenteRequest(
     Guid CotacaoId,
     Guid ItemId,
     string Sku,
-    Guid FabricanteId,
+    string FabricanteId,
     string Fabricante,
     ETipoProdutoEquivalente TipoProdutoEquivalente);

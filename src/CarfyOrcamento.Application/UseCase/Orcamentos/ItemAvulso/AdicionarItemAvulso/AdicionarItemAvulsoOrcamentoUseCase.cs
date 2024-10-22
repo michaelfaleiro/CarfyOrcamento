@@ -24,7 +24,7 @@ public class AdicionarItemAvulsoOrcamentoUseCase
         orcamento.UpdatedAt = DateTime.UtcNow;
 
         var item = new ItemAvulsoOrcamento(
-            request.FabricanteId,
+            Guid.Parse(request.FabricanteId),
             request.Sku,
             request.Fabricante,
             request.Quantidade,

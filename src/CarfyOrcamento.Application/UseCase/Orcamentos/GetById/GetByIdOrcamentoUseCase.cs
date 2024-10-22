@@ -35,6 +35,7 @@ public class GetByIdOrcamentoUseCase
             ),
             new ResponseVeiculoJson(
                 orcamento.Veiculo.Id,
+                orcamento.Veiculo.Cliente.Id,
                 orcamento.Veiculo.Placa,
                 orcamento.Veiculo.Chassi,
                 orcamento.Veiculo.Marca,

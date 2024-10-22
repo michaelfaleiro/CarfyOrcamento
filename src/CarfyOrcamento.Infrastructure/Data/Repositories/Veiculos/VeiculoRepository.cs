@@ -8,14 +8,17 @@ namespace CarfyOrcamento.Infrastructure.Data.Repositories.Veiculos;
 public class VeiculoRepository : IVeiculoRepository
 {
     private readonly AppDbContext _context;
-    
+
     public VeiculoRepository(AppDbContext context)
     {
         _context = context;
     }
     public async Task<Veiculo?> GetByIdAsync(Guid id)
     {
-        return await _context.Veiculos.FirstOrDefaultAsync(x => x.Id == id);
+        return await _context
+        .Veiculos
+        .Include(x => x.Cliente)
+        .FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<PagedResponse<Veiculo>> GetAllAsync(int pageNumber, int pageSize)
@@ -37,7 +40,7 @@ public class VeiculoRepository : IVeiculoRepository
     {
         await _context.Veiculos.AddAsync(entity);
         await _context.SaveChangesAsync();
-        
+
         return entity;
     }
 

@@ -19,17 +19,17 @@ public class AdicionarCodigoEquivalenteValidator : AbstractValidator<AdicionarCo
             .NotEmpty()
             .WithMessage("SKU é obrigatório");
 
-        RuleFor(x => x.FabricanteId)
-            .NotEmpty()
-            .WithMessage("Fabricante é obrigatório");
-
         RuleFor(x => x.Fabricante)
             .NotEmpty()
             .WithMessage("Nome do fabricante é obrigatório");
+
+        RuleFor(x => x.FabricanteId)
+            .NotEmpty()
+            .WithMessage("Fabricante é obrigatório");
 
         RuleFor(x => x.TipoProdutoEquivalente)
             .IsInEnum()
             .WithMessage("Tipo de produto equivalente inválido");
     }
-    
+
 }

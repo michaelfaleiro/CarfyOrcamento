@@ -11,7 +11,7 @@ public class AlterarStatusOrcamentoValidator : AbstractValidator<AlterarStatusOr
             .WithMessage("Id do orçamento é obrigatório");
 
         RuleFor(x => x.Status)
-            .IsInEnum()
-            .WithMessage("Status inválido");
+            .NotEmpty()
+            .WithMessage("Status é obrigatório");
     }
 }

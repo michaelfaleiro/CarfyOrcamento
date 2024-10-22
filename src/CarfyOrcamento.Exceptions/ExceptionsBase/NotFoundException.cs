@@ -11,6 +11,6 @@ public class NotFoundException(string message) : CarfyOrcamentoExceptionBase(mes
 
     public override IList<string> GetErrorMessages()
     {
-        return new List<string> { Message };
+        return [Message];
     }
 }
