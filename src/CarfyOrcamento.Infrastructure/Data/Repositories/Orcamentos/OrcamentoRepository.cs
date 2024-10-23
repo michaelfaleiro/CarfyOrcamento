@@ -65,7 +65,9 @@ internal class OrcamentoRepository : IOrcamentoRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task<PagedResponse<Orcamento>> GetAllAsync(int pageNumber, int pageSize, string? status , string? orderBy = null)
+    public async Task<PagedResponse<Orcamento>> GetAllAsync(
+        int pageNumber, int pageSize, string? status, DateTime? startDate = null,
+        DateTime? endDate = null, string? search = null, string? orderBy = null)
 {
     IQueryable<Orcamento> query = _context.Orcamentos
         .AsNoTracking()
@@ -77,6 +79,23 @@ internal class OrcamentoRepository : IOrcamentoRepository
         query = query.Where(x => x.Status == statusEnum);
     }
 
+    if (startDate.HasValue)
+    {
+        var startDateOnly = startDate.Value.Date;
+        query = query.Where(x => x.CreatedAt.Date >= startDateOnly);
+    }
+
+    if (endDate.HasValue)
+    {
+        var endDateOnly = endDate.Value.Date;
+        query = query.Where(x => x.CreatedAt.Date <= endDateOnly);
+    }
+
+    if (!string.IsNullOrWhiteSpace(search))
+    {
+        query = query.Where(x => EF.Functions.ILike(x.Cliente.NomeRazaoSocial, $"%{search}%"));
+    }
+
     if (!string.IsNullOrWhiteSpace(orderBy))
     {
         query = orderBy switch
@@ -85,12 +104,12 @@ internal class OrcamentoRepository : IOrcamentoRepository
             "CreatedAtDesc" => query.OrderByDescending(x => x.CreatedAt),
             "UpdatedAt" => query.OrderBy(x => x.UpdatedAt),
             "UpdatedAtDesc" => query.OrderByDescending(x => x.UpdatedAt),
-            _ => query.OrderBy(x => x.CreatedAt) // Default sorting
+            _ => query.OrderByDescending(x => x.CreatedAt) // Default sorting
         };
     }
     else
     {
-        query = query.OrderBy(x => x.CreatedAt); // Default sorting
+        query = query.OrderByDescending(x => x.CreatedAt); // Default sorting
     }
 
     var data = await query
