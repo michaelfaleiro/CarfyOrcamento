@@ -70,24 +70,24 @@ public class ClienteRepository : IClienteRepository
     }
 
     public async Task<PagedResponse<Cliente>> SearchAsync(string search, int pageNumber, int pageSize)
-    {
-        var query = _context.Clientes.AsNoTracking()
-            .Include(c => c.Veiculos);
+{
+    var query = _context.Clientes.AsNoTracking()
+        .Include(c => c.Veiculos);
 
-        var totalItems = await query
-            .Where(c => c.NomeRazaoSocial.Contains(search)
-                        || c.Telefone.Contains(search)
-                        || c.Veiculos.Any(cv => cv.Placa.Contains(search)))
-            .CountAsync();
+    var totalItems = await query
+        .Where(c => EF.Functions.ILike(c.NomeRazaoSocial, $"%{search}%")
+                    || EF.Functions.ILike(c.Telefone, $"%{search}%")
+                    || c.Veiculos.Any(cv => EF.Functions.ILike(cv.Placa, $"%{search}%")))
+        .CountAsync();
 
-        var clientes = await query
-            .Where(c => c.NomeRazaoSocial.Contains(search)
-                        || c.Telefone.Contains(search)
-                        || c.Veiculos.Any(cv => cv.Placa.Contains(search)))
-            .Skip((pageNumber - 1) * pageSize)
-            .Take(pageSize)
-            .ToListAsync();
+    var clientes = await query
+        .Where(c => EF.Functions.ILike(c.NomeRazaoSocial, $"%{search}%")
+                    || EF.Functions.ILike(c.Telefone, $"%{search}%")
+                    || c.Veiculos.Any(cv => EF.Functions.ILike(cv.Placa, $"%{search}%")))
+        .Skip((pageNumber - 1) * pageSize)
+        .Take(pageSize)
+        .ToListAsync();
 
-        return new PagedResponse<Cliente>(clientes, totalItems, pageNumber, pageSize);
-    }
+    return new PagedResponse<Cliente>(clientes, totalItems, pageNumber, pageSize);
+}
 }

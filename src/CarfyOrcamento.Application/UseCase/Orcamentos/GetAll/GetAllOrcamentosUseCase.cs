@@ -15,9 +15,11 @@ public class GetAllOrcamentosUseCase
         _orcamentoRepository = orcamentoRepository;
     }
 
-    public async Task<PagedResponse<ResponseOrcamentoShortJson>> ExecuteAsync(int pageNumber, int pageSize, string? status, string? orderBy = null)
+    public async Task<PagedResponse<ResponseOrcamentoShortJson>> ExecuteAsync(
+        int pageNumber, int pageSize, string? status, DateTime? startDate , DateTime? endDate, string? search, string? sort)
     {
-        var orcamentos = await _orcamentoRepository.GetAllAsync(pageNumber, pageSize, status, orderBy);
+        var orcamentos = await _orcamentoRepository.GetAllAsync(
+            pageNumber, pageSize, status, startDate, endDate, search, sort);
 
         return new PagedResponse<ResponseOrcamentoShortJson>(orcamentos.Data.Select(orcamento => new ResponseOrcamentoShortJson(
             orcamento.Id,

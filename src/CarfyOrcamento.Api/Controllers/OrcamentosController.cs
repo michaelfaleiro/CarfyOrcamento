@@ -37,12 +37,15 @@ public class OrcamentosController : ControllerBase
     public async Task<IActionResult> GetAsync(
         [FromServices] GetAllOrcamentosUseCase useCase,
         [FromQuery] string? status,
-        [FromQuery] string? orderBy,
+        [FromQuery] string? search,
+        [FromQuery] string? sort,
+        [FromQuery] DateTime? startDate,
+        [FromQuery] DateTime? endDate,
         [FromQuery] int pageNumber = Configuration.DefaultPageNumber,
         [FromQuery] int pageSize = Configuration.DefaultPageSize
             )
     {
-        return Ok(await useCase.ExecuteAsync(pageNumber, pageSize, status, orderBy));
+        return Ok(await useCase.ExecuteAsync(pageNumber, pageSize, status, startDate, endDate, search, sort));
     }
     
     [HttpGet("{id:guid}")]
