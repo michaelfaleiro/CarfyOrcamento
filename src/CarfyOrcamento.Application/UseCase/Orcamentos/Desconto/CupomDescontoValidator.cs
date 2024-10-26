@@ -11,8 +11,6 @@ public class CupomDescontoValidator : AbstractValidator<AdicionarCupomDescontoOr
             .NotEmpty().WithMessage("Id é obrigatório");
 
         RuleFor(x => x.CupomDesconto)
-            .NotEmpty()
-            .WithMessage("Valor do desconto é obrigatório")
             .GreaterThan(0).WithMessage("O valor do desconto deve ser maior que 0");
     }
     
