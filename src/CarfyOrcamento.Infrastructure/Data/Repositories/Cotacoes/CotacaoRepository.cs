@@ -16,12 +16,15 @@ internal class CotacaoRepository : ICotacaoRepository
 
     public async Task<Cotacao?> GetByIdAsync(Guid id)
     {
-        return await _context.Cotacoes
+        return await _context.Cotacoes.AsSplitQuery()
             .Include(x => x.Orcamento)
             .Include(x => x.Itens)
             .ThenInclude(x => x.PrecoItemFornecedor)
             .Include(x => x.Itens)
             .ThenInclude(x => x.CodigoEquivalentes)
+            .Include(x => x.Orcamento)
+            .ThenInclude(x => x.Veiculo)
+            .ThenInclude(x=> x.Cliente)
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
@@ -120,9 +123,9 @@ internal class CotacaoRepository : ICotacaoRepository
     public async Task<ItemCotacao?> GetItemById(Guid itemId)
     {
         return await _context.ItemCotacoes
-            .Include(x=> x.Cotacao)
-            .Include(x=> x.CodigoEquivalentes)
-            .Include(x=> x.PrecoItemFornecedor)
+            .Include(x => x.Cotacao)
+            .Include(x => x.CodigoEquivalentes)
+            .Include(x => x.PrecoItemFornecedor)
             .FirstOrDefaultAsync(x => x.Id == itemId);
     }
 }

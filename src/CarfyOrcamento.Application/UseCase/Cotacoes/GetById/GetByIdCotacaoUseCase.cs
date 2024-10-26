@@ -1,6 +1,8 @@
-﻿using CarfyOrcamento.Communication.Response;
+﻿using System.Security.Cryptography.X509Certificates;
+using CarfyOrcamento.Communication.Response;
 using CarfyOrcamento.Communication.Response.Cotacoes;
 using CarfyOrcamento.Communication.Response.ItemCotacao;
+using CarfyOrcamento.Communication.Response.Veiculo;
 using CarfyOrcamento.Core.Repositories.Cotacoes;
 using CarfyOrcamento.Exceptions.ExceptionsBase;
 
@@ -19,11 +21,23 @@ public class GetByIdCotacaoUseCase
         var cotacao = await _cotacaoRepository.GetByIdAsync(id)
             ?? throw new NotFoundException("Cotação não encontrada");
 
-
         return new ResponseJson<ResponseCotacaoJson>(
             new ResponseCotacaoJson(
                 cotacao.Id,
                 cotacao.OrcamentoId,
+                new ResponseVeiculoJson(
+                    cotacao.Orcamento.Veiculo.Id,
+                    cotacao.Orcamento.Veiculo.Cliente.Id,
+                    cotacao.Orcamento.Veiculo.Placa,
+                    cotacao.Orcamento.Veiculo.Chassi,
+                    cotacao.Orcamento.Veiculo.Marca,
+                    cotacao.Orcamento.Veiculo.Modelo,
+                    cotacao.Orcamento.Veiculo.Cor,
+                    cotacao.Orcamento.Veiculo.Ano,
+                    cotacao.Orcamento.Veiculo.Motor,
+                    cotacao.Orcamento.Veiculo.CreatedAt,
+                    cotacao.Orcamento.Veiculo.UpdatedAt
+                ),
                 cotacao.Status,
                 cotacao.Itens.Select(item => new ResponseItemCotacaoJson(
                     item.Id,

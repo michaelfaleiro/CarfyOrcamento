@@ -34,7 +34,7 @@ public class FreteOrcamentoUseCase
         var validator = new FreteOrcamentoValidator();
         var validationResult = validator.Validate(request);
         
-        if (!validationResult.IsValid) return;
+        if (validationResult.IsValid) return;
         
         var errors = validationResult.Errors.Select(x => x.ErrorMessage).ToList();
         throw new ErrorOnValidateException(errors);
