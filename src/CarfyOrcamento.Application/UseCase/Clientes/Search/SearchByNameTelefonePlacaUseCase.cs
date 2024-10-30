@@ -1,5 +1,6 @@
 using CarfyOrcamento.Communication.Response;
 using CarfyOrcamento.Communication.Response.Clientes;
+using CarfyOrcamento.Communication.Response.Orcamentos;
 using CarfyOrcamento.Communication.Response.Veiculo;
 using CarfyOrcamento.Core.Repositories.Clientes;
 
@@ -26,6 +27,12 @@ public class SearchByNameTelefonePlacaUseCase
             cliente.RgIe,
             cliente.Telefone,
             cliente.Email,
+            cliente.Orcamentos.Select(orcamento => new ResponseOrcamentoMinimum(
+                orcamento.Id,
+                orcamento.Status,
+                orcamento.CreatedAt,
+                orcamento.UpdatedAt
+            )).ToList(),
             cliente.Veiculos.Select(veiculo => new ResponseVeiculoJson(
                 veiculo.Id,
                 veiculo.Cliente.Id,

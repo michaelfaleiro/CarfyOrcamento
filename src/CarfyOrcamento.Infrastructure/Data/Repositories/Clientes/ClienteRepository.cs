@@ -46,6 +46,7 @@ public class ClienteRepository : IClienteRepository
     public async Task<Cliente?> GetByIdAsync(Guid id)
     {
         return await _context.Clientes
+            .Include(x=> x.Orcamentos)
             .Include(x => x.Enderecos)
             .Include(x => x.Veiculos)
             .FirstOrDefaultAsync(x => x.Id == id);
