@@ -12,8 +12,7 @@ public class DescontoOrcamentoValidator : AbstractValidator<AdicionarDescontoOrc
             .WithMessage("Id do orçamento é obrigatório");
 
         RuleFor(x => x.ValorDesconto)
-            .GreaterThan(0)
-            .WithMessage("Valor do desconto deve ser maior que 0");
+            .GreaterThanOrEqualTo(0).WithMessage("O valor do desconto deve ser maior ou igual a 0");
     }
     
 }

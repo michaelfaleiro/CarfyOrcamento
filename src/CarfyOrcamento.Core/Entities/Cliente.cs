@@ -8,6 +8,7 @@ public class Cliente : Entity
     {
         Enderecos = [];
         Veiculos = [];
+        Orcamentos = [];
     }
 
     public Cliente(string nomeRazaoSocial,
@@ -24,6 +25,7 @@ public class Cliente : Entity
         TipoPessoa = tipoPessoa;
         Observacao = observacao;
         Enderecos = [];
+        Orcamentos = [];
         Veiculos = [];
     }
     public string NomeRazaoSocial { get; set; } = null!;
@@ -34,6 +36,7 @@ public class Cliente : Entity
     public string Email { get; set; } = string.Empty;
     public IList<Endereco> Enderecos { get; set; }
     public IList<Veiculo> Veiculos { get; set; }
+    public IList<Orcamento> Orcamentos { get; set; }
     public ETipoPessoa TipoPessoa { get; set; }
     public string Observacao { get; set; } = string.Empty;
 

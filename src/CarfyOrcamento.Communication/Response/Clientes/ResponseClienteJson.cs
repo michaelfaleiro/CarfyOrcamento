@@ -1,3 +1,4 @@
+using CarfyOrcamento.Communication.Response.Orcamentos;
 using CarfyOrcamento.Communication.Response.Veiculo;
 using CarfyOrcamento.Core.Enums;
 
@@ -11,6 +12,7 @@ public record class ResponseClienteJson(
     string RgIe,
     string Telefone,
     string Email,
+    IEnumerable<ResponseOrcamentoMinimum> Orcamentos,
     IEnumerable<ResponseVeiculoJson> Veiculos,
     ETipoPessoa ETipoPessoa,
     string Observacao,

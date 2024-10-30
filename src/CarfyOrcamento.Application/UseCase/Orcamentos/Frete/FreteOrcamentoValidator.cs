@@ -12,10 +12,7 @@ public class FreteOrcamentoValidator : AbstractValidator<AdicionarFreteRequest>
             .WithMessage("Id do orçamento é obrigatório");
 
         RuleFor(x => x.ValorFrete)
-            .NotEmpty()
-            .WithMessage("Valor do frete é obrigatório")
-            .GreaterThan(0)
-            .WithMessage("Valor do frete deve ser maior que 0");
+            .GreaterThanOrEqualTo(0).WithMessage("O valor do desconto deve ser maior ou igual a 0");
     }
     
 }
