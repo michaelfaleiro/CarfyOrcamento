@@ -29,10 +29,15 @@ public class VeiculosController : ControllerBase
     [ProducesResponseType(typeof(PagedResponse<ResponseVeiculoJson>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll(
         [FromServices] GetAllVeiculosUseCase useCase,
+        [FromQuery] string? status,
+        [FromQuery] string? search,
+        [FromQuery] string? sort,
+        [FromQuery] DateTime? startDate,
+        [FromQuery] DateTime? endDate,
         [FromQuery] int pageNumber = Configuration.DefaultPageNumber,
         [FromQuery] int pageSize = Configuration.DefaultPageSize)
     {
-        var response = await useCase.Execute(pageNumber, pageSize);
+        var response = await useCase.ExecuteAsync(pageNumber, pageSize, status, startDate, endDate, search, sort);
         return Ok(response);
     }
 

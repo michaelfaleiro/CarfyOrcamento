@@ -42,7 +42,7 @@ public class ClienteRepository : IClienteRepository
 
         return new PagedResponse<Cliente>(data, count, pageNumber, pageSize);
     }
-
+    
     public async Task<Cliente?> GetByIdAsync(Guid id)
     {
         return await _context.Clientes
@@ -91,4 +91,49 @@ public class ClienteRepository : IClienteRepository
 
     return new PagedResponse<Cliente>(clientes, totalItems, pageNumber, pageSize);
 }
+
+    public async Task<PagedResponse<Cliente>> GetAllClientesAsync(
+        int pageNumber, int pageSize, string? status, DateTime? startDate = null,
+        DateTime? endDate = null, string? search = null, string? orderBy = null)
+    {
+        IQueryable<Cliente> query = _context.Clientes.AsNoTracking()
+            .Include(c => c.Veiculos);
+        
+        if (startDate.HasValue)
+        {
+            query = query.Where(c => c.CreatedAt >= startDate);
+        }
+
+        if (endDate.HasValue)
+        {
+            query = query.Where(c => c.CreatedAt <= endDate);
+        }
+
+        if (!string.IsNullOrWhiteSpace(search))
+        {
+            query = query.Where(c => EF.Functions.ILike(c.NomeRazaoSocial, $"%{search}%")
+                                     || EF.Functions.ILike(c.Telefone, $"%{search}%")
+                                     || c.Veiculos.Any(cv => EF.Functions.ILike(cv.Placa, $"%{search}%")));
+        }
+
+        if (!string.IsNullOrWhiteSpace(orderBy))
+        {
+            query = orderBy switch
+            {
+                "nome" => query.OrderBy(c => c.NomeRazaoSocial),
+                "telefone" => query.OrderBy(c => c.Telefone),
+                "dataCadastro" => query.OrderBy(c => c.CreatedAt),
+                _ => query.OrderBy(c => c.NomeRazaoSocial)
+            };
+        }
+
+        var totalCount = await query.CountAsync();
+
+        var clientes = await query
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+
+        return new PagedResponse<Cliente>(clientes, totalCount, pageNumber, pageSize);
+    }
 }

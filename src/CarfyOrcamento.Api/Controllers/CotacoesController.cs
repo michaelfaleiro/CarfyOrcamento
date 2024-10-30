@@ -39,10 +39,16 @@ public class CotacoesController : ControllerBase
     [ProducesResponseType(typeof(PagedResponse<ResponseCotacaoShortJson>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllCotacoes(
         [FromServices] GetAllCotacoesUseCase useCase,
+        [FromQuery] string? status,
+        [FromQuery] string? search,
+        [FromQuery] string? vendedor,
+        [FromQuery] string? sort,
+        [FromQuery] DateTime? startDate,
+        [FromQuery] DateTime? endDate,
         [FromQuery] int pageNumber = Configuration.DefaultPageNumber,
         [FromQuery] int pageSize = Configuration.DefaultPageSize)
     {
-        var response = await useCase.ExecuteAsync(pageNumber, pageSize);
+        var response = await useCase.ExecuteAsync(pageNumber, pageSize, status, startDate, endDate, search, vendedor,sort);
         return Ok(response);
     }
 

@@ -16,10 +16,10 @@ public class GetAllOrcamentosUseCase
     }
 
     public async Task<PagedResponse<ResponseOrcamentoShortJson>> ExecuteAsync(
-        int pageNumber, int pageSize, string? status, DateTime? startDate , DateTime? endDate, string? search, string? sort)
+        int pageNumber, int pageSize, string? status, DateTime? startDate , DateTime? endDate, string? search, string? vendedor, string? sort)
     {
         var orcamentos = await _orcamentoRepository.GetAllAsync(
-            pageNumber, pageSize, status, startDate, endDate, search, sort);
+            pageNumber, pageSize, status, startDate, endDate, search, vendedor, sort);
 
         return new PagedResponse<ResponseOrcamentoShortJson>(orcamentos.Data.Select(orcamento => new ResponseOrcamentoShortJson(
             orcamento.Id,
@@ -34,7 +34,9 @@ public class GetAllOrcamentosUseCase
                 orcamento.Veiculo.Id,
                 orcamento.Veiculo.Placa,
                 orcamento.Veiculo.Modelo,
-                orcamento.Veiculo.Chassi
+                orcamento.Veiculo.Chassi,
+                orcamento.Veiculo.Marca,
+                orcamento.Veiculo.Ano
             ),
             orcamento.Vendedor,
             orcamento.Status,

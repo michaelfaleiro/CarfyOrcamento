@@ -67,7 +67,7 @@ internal class OrcamentoRepository : IOrcamentoRepository
 
     public async Task<PagedResponse<Orcamento>> GetAllAsync(
         int pageNumber, int pageSize, string? status, DateTime? startDate = null,
-        DateTime? endDate = null, string? search = null, string? orderBy = null)
+        DateTime? endDate = null, string? search = null, string? vendedor = null, string? orderBy = null)
 {
     IQueryable<Orcamento> query = _context.Orcamentos
         .AsNoTracking()
@@ -95,7 +95,12 @@ internal class OrcamentoRepository : IOrcamentoRepository
     {
         query = query.Where(x => EF.Functions.ILike(x.Cliente.NomeRazaoSocial, $"%{search}%"));
     }
-
+    
+    if (!string.IsNullOrWhiteSpace(vendedor))
+    {
+        query = query.Where(x => EF.Functions.ILike(x.Vendedor, $"%{vendedor}%"));
+    }
+    
     if (!string.IsNullOrWhiteSpace(orderBy))
     {
         query = orderBy switch

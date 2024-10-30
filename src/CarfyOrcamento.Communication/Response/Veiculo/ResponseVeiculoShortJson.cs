@@ -4,5 +4,7 @@ public record ResponseVeiculoShortJson(
     Guid Id,
     string Placa,
     string Modelo,
-    string Chassi
+    string Chassi,
+    string Marca,
+    int Ano
     );

@@ -38,6 +38,7 @@ public class OrcamentosController : ControllerBase
         [FromServices] GetAllOrcamentosUseCase useCase,
         [FromQuery] string? status,
         [FromQuery] string? search,
+        [FromQuery] string? vendedor,
         [FromQuery] string? sort,
         [FromQuery] DateTime? startDate,
         [FromQuery] DateTime? endDate,
@@ -45,7 +46,7 @@ public class OrcamentosController : ControllerBase
         [FromQuery] int pageSize = Configuration.DefaultPageSize
             )
     {
-        return Ok(await useCase.ExecuteAsync(pageNumber, pageSize, status, startDate, endDate, search, sort));
+        return Ok(await useCase.ExecuteAsync(pageNumber, pageSize, status, startDate, endDate, search, vendedor,sort));
     }
     
     [HttpGet("{id:guid}")]

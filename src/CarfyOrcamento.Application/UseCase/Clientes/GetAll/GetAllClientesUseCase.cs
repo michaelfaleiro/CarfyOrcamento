@@ -13,9 +13,10 @@ public class GetAllClientesUseCase
         _clienteRepository = clienteRepository;
     }
 
-    public async Task<PagedResponse<ResponseClienteShortJson>> Execute(int pageNumber, int pageSize)
+    public async Task<PagedResponse<ResponseClienteShortJson>> ExecuteAsync(
+        int pageNumber, int pageSize, string? status, DateTime? startDate , DateTime? endDate, string? search, string? sort)
     {
-        var clientes = await _clienteRepository.GetAllAsync(pageNumber, pageSize);
+        var clientes = await _clienteRepository.GetAllClientesAsync(pageNumber, pageSize, status, startDate, endDate, search, sort);
 
         return new PagedResponse<ResponseClienteShortJson>(
             clientes.Data.Select(cliente => new ResponseClienteShortJson(
