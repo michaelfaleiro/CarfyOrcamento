@@ -12,9 +12,11 @@ public class GetAllCotacoesUseCase
         _cotacaoRepository = cotacaoRepository;
     }
 
-    public async Task<PagedResponse<ResponseCotacaoShortJson>> ExecuteAsync(int pageNumber, int pageSize)
+    public async Task<PagedResponse<ResponseCotacaoShortJson>> ExecuteAsync(
+        int pageNumber, int pageSize, string? status, DateTime? startDate , DateTime? endDate, string? search, string? vendedor, string? sort)
     {
-        var cotacoes = await _cotacaoRepository.GetAllAsync(pageNumber, pageSize);
+        var cotacoes = await _cotacaoRepository.GetAllCotacoesAsync(
+            pageNumber, pageSize, status, startDate, endDate, search, vendedor,sort);
 
         return new PagedResponse<ResponseCotacaoShortJson>(
             cotacoes.Data.Select(cotacao => new ResponseCotacaoShortJson(

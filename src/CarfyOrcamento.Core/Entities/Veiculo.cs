@@ -1,3 +1,5 @@
+using CarfyOrcamento.Exceptions.ExceptionsBase;
+
 namespace CarfyOrcamento.Core.Entities;
 
 public class Veiculo : Entity
@@ -6,8 +8,10 @@ public class Veiculo : Entity
     {
         
     }
-    public Veiculo(Cliente cliente,string placa, string chassi, string marca, string modelo, string cor,  int ano, string motor)
+    public Veiculo(Cliente cliente,string placa, string chassi, string marca,
+        string modelo, string cor,  int ano, string motor)
     {
+        VerificarVeiculoExisteCliente(cliente, placa);
         Cliente = cliente;
         Placa = placa;
         Chassi = chassi;
@@ -37,5 +41,11 @@ public class Veiculo : Entity
         Ano = veiculo.Ano;
         Motor = veiculo.Motor;
         UpdatedAt = DateTime.UtcNow;
+    }
+    
+    private void VerificarVeiculoExisteCliente(Cliente cliente, string placa)
+    {
+        if (cliente.Veiculos.Any(x => x.Placa == placa ))
+            throw new BusinessException("Veiculo já cadastrado para o cliente");
     }
 }

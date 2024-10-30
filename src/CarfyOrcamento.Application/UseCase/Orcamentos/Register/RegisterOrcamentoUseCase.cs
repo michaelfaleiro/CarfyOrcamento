@@ -45,7 +45,7 @@ public class RegisterOrcamentoUseCase
             orcamento.Id, new ResponseClienteShortJson(
                 cliente.Id, cliente.NomeRazaoSocial, cliente.Telefone, cliente.Email, cliente.TipoPessoa), 
             new ResponseVeiculoShortJson(veiculo.Id, veiculo.Placa, 
-                veiculo.Modelo, veiculo.Chassi)
+                veiculo.Modelo, veiculo.Chassi, veiculo.Marca, veiculo.Ano)
             ,orcamento.Vendedor, orcamento.Status, orcamento.CreatedAt, orcamento.UpdatedAt);
 
         return new ResponseJson<ResponseOrcamentoShortJson>(result);
