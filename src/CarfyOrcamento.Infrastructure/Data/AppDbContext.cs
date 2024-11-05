@@ -18,6 +18,7 @@ public class AppDbContext : DbContext
     public DbSet<ItemCotacao> ItemCotacoes { get; set; } = null!;
     public DbSet<ItemCodigoEquivalente> CodigoEquivalentes { get; set; } = null!;
     public DbSet<PrecoItemCotacao> PrecoItemCotacoes { get; set; } = null!;
+    public DbSet<Catalogo> Catalogos { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
